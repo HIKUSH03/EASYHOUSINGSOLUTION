@@ -21,7 +21,7 @@ namespace EHSWebAPI.Controllers
             public CityController()
             {
                 EHSDbContext context = new EHSDbContext();
-                _cityRepository = new  CityRepository(context);
+                _cityRepository = new CityRepository(context);
             }
 
             // GET: api/city
