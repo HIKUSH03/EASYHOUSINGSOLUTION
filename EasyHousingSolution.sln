@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHSDataAccessLayer", "EHSDa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHSWebAPI", "EHSWebAPI\EHSWebAPI.csproj", "{D3FCD682-759C-4538-A28A-72AB7B87F579}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHSolutionClient", "EHSolutionClient\EHSolutionClient.csproj", "{73BDDDC3-E426-4F67-B8E9-8BA65C14AE77}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyHousingClient", "EasyHousingClient\EasyHousingClient.csproj", "{A3452538-385C-475B-800D-D867A9A20F15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{D3FCD682-759C-4538-A28A-72AB7B87F579}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3FCD682-759C-4538-A28A-72AB7B87F579}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3FCD682-759C-4538-A28A-72AB7B87F579}.Release|Any CPU.Build.0 = Release|Any CPU
-		{73BDDDC3-E426-4F67-B8E9-8BA65C14AE77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{73BDDDC3-E426-4F67-B8E9-8BA65C14AE77}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{73BDDDC3-E426-4F67-B8E9-8BA65C14AE77}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{73BDDDC3-E426-4F67-B8E9-8BA65C14AE77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3452538-385C-475B-800D-D867A9A20F15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3452538-385C-475B-800D-D867A9A20F15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3452538-385C-475B-800D-D867A9A20F15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3452538-385C-475B-800D-D867A9A20F15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
