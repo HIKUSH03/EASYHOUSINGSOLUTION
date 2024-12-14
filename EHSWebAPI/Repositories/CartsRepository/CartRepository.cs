@@ -44,8 +44,26 @@ namespace EHSWebAPI.Repositories.CartsRepository
 
         public void UpdateCart(Cart cart)
         {
+            var existingCart = _context.Carts.Find(cart.CartId);
+            if (existingCart != null)
+            {
+                // Update the properties of the existing cart with the new values
+                existingCart.BuyerId = cart.BuyerId;
+                existingCart.Property = cart.Property;
 
-            throw new NotImplementedException();
+                // Save changes to the database
+                _context.SaveChanges();
+            }
+            else
+            {
+                throw new Exception($"Cart with ID {cart.CartId} not found.");
+            }
+        }
+
+        public void AddCart(Cart cart)
+        {
+            _context.Carts.Add(cart);
+            _context.SaveChanges();
         }
     }
 }

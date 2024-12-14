@@ -9,5 +9,6 @@ namespace EHSWebAPI.Repositories.CartsRepository
         Cart GetCartById(int cartId);
         void UpdateCart(Cart cart);
         void DeleteCart(int cartId);
+        void AddCart(Cart cart);
     }
 }
