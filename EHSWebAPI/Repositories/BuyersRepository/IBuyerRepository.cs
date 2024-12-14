@@ -10,9 +10,9 @@ namespace EHSWebAPI.Repositories.BuyersRepository
 {
     public interface IBuyerRepository
     {
+        Buyer CreateBuyer(Buyer buyer);
         IList<Buyer> GetAllBuyers();
-        Buyer GetBuyerById(int id);
-
+        Property GetPropertyById(int id);
         IEnumerable<Property> GetPropertyByPrice();
 
         IEnumerable<Cart> AddToCart(int buyerId, int propertyId);

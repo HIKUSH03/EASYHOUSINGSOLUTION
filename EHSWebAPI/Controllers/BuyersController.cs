@@ -14,15 +14,24 @@ namespace EHSWebAPI.Controllers
     public class BuyersController : ApiController
     {
         private readonly IBuyerRepository _buyerRepository;
-
-   
         public BuyersController()
         {
             EHSDbContext context = new EHSDbContext();
             _buyerRepository = new BuyerRepository(context);
         }
 
-        // GET: api/Buyers
+        // create new buyer
+        [HttpPost]
+        [Route("")]
+        public IHttpActionResult CreateBuyer([FromBody] Buyer buyer)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var result = _buyerRepository.CreateBuyer(buyer);
+            return Ok(result);
+        }
+
+        // Get all buyers
         [HttpGet]
         [Route("")]
         public IEnumerable<Buyer> Get()
@@ -30,6 +39,15 @@ namespace EHSWebAPI.Controllers
             return _buyerRepository.GetAllBuyers();
         }
 
+        // get property by Id
+        [HttpGet]
+        [Route("property/{id}")]
+        public Property GetPropertyById(int id)
+        {
+            return _buyerRepository.GetPropertyById(id);
+        }
+
+        // sort property by Price
         [HttpGet]
         [Route("propertybyprice")]
         public IEnumerable<Property> PropertyByPrice()
@@ -37,7 +55,7 @@ namespace EHSWebAPI.Controllers
             return _buyerRepository.GetPropertyByPrice();
         }
 
-
+        // add property to cart
         [HttpPost]
         [Route("addtocart/{buyerId}/{propertyId}")]
         public IHttpActionResult AddToCart(int buyerId, int propertyId)
@@ -49,6 +67,7 @@ namespace EHSWebAPI.Controllers
             return Ok(result);
         }
 
+        // remove from cart
         [HttpDelete]
         [Route("removefromcart/{id}")]
         public IHttpActionResult RemoveFromCart(int id)
