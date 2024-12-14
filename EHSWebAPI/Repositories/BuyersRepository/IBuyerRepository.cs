@@ -12,7 +12,12 @@ namespace EHSWebAPI.Repositories.BuyersRepository
     {
         IList<Buyer> GetAllBuyers();
         Buyer GetBuyerById(int id);
-        //IEnumerable<Buyer> GetBuyerByName(string name);
+
+        IEnumerable<Property> GetPropertyByPrice();
+
+        //IEnumerable<Cart> AddToCart(int buyerId, int propertyId);
+
+        bool RemoveFromCart(int? id);
 
     }
 }
