@@ -33,10 +33,16 @@ namespace EHSWebAPI.Repositories.StatesRepository
             var state = _eHSDbContext.States.SingleOrDefault(s => s.StateId == id);
             if (state!=null)
             {
+                var toRemove = _eHSDbContext.Sellers.FirstOrDefault(x => x.StateId == id);
+                var toRemoveCity = _eHSDbContext.Cities.FirstOrDefault(x => x.StateId==id);
+
+                _eHSDbContext.Cities.Remove(toRemoveCity);
+                _eHSDbContext.Sellers.Remove(toRemove);
                 _eHSDbContext.States.Remove(state);
                 _eHSDbContext.SaveChanges();
             }
         }
+     
         public void UpdateState(State state)
         {
             var existState = _eHSDbContext.States.SingleOrDefault(s => s.StateId == state.StateId);

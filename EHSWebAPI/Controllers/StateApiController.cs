@@ -47,9 +47,12 @@ namespace EHSWebAPI.Controllers
         [Route(" ")]
         public IHttpActionResult AddState([FromBody] State state)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
             _stateRepository.AddState(state);
             return Created($"api/state/{state.StateId}", state);
         }
+       
 
         // PUT: api/StateApi/5
         [HttpPut]
