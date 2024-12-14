@@ -105,6 +105,7 @@
     <Compile Include="Controllers\CityApiController.cs" />
     <Compile Include="Controllers\SellerApiController.cs" />
     <Compile Include="Controllers\BuyersController.cs" />
+    <Compile Include="Controllers\StateApiController.cs" />
     <Compile Include="Controllers\UsersApiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
