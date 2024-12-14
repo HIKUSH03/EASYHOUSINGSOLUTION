@@ -30,25 +30,36 @@ namespace EHSWebAPI.Controllers
             return _buyerRepository.GetAllBuyers();
         }
 
-        // GET: api/Buyers/5
-        public Buyer Get(int id)
+        [HttpGet]
+        [Route("propertybyprice")]
+        public IEnumerable<Property> PropertyByPrice()
         {
-            return _buyerRepository.GetBuyerById(id);
+            return _buyerRepository.GetPropertyByPrice();
         }
 
-        // POST: api/Buyers
-        public void Post([FromBody]string value)
+
+        //[HttpPost]
+        //[Route("addtocart/{buyerId}/{propertyId}")]
+        //public IHttpActionResult AddToCart(int buyerId, int propertyId)
+        //{
+
+        //    var result = _buyerRepository.AddToCart(buyerId, propertyId);
+        //    if (result == null)
+        //        return NotFound();
+        //    return Ok(result);
+        //}
+
+        [HttpDelete]
+        [Route("removefromcart/{id}")]
+        public IHttpActionResult RemoveFromCart(int id)
         {
+            var success = _buyerRepository.RemoveFromCart(id);
+            if(success)
+            {
+                return Ok();
+            }
+            return NotFound();
         }
 
-        // PUT: api/Buyers/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Buyers/5
-        public void Delete(int id)
-        {
-        }
     }
 }
