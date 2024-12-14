@@ -102,11 +102,9 @@
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-
     <Compile Include="Controllers\SellerApiController.cs" />
-
     <Compile Include="Controllers\BuyersController.cs" />
-
+    <Compile Include="Controllers\UsersApiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
