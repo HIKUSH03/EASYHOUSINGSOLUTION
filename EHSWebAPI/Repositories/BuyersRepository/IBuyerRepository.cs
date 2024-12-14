@@ -15,7 +15,7 @@ namespace EHSWebAPI.Repositories.BuyersRepository
 
         IEnumerable<Property> GetPropertyByPrice();
 
-        //IEnumerable<Cart> AddToCart(int buyerId, int propertyId);
+        IEnumerable<Cart> AddToCart(int buyerId, int propertyId);
 
         bool RemoveFromCart(int? id);
 

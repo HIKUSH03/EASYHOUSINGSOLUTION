@@ -34,19 +34,19 @@ namespace EHSWebAPI.Repositories.BuyersRepository
             return _eHSDbContext.Properties.ToList().OrderBy(x => x.PriceRange);
         }
 
-        //public IEnumerable<Cart> AddToCart(int buyerId, int propertyId)
-        //{
-        //    Cart cart = new Cart()
-        //    {
-        //        BuyerId = buyerId,
-        //        PropertyId = propertyId,
-        //        Buyer = _eHSDbContext.Buyers.FirstOrDefault(b => b.BuyerId == buyerId),
-        //        Property = _eHSDbContext.Properties.FirstOrDefault(p => p.PropertyId == propertyId)
-        //    };
-        //    _eHSDbContext.Carts.Add(cart);
-        //    _eHSDbContext.SaveChanges();
-        //    return _eHSDbContext.Carts.ToList();
-        //}
+        public IEnumerable<Cart> AddToCart(int buyerId, int propertyId)
+        {
+            Cart cart = new Cart()
+            {
+                BuyerId = buyerId,
+                PropertyId = propertyId,
+                Buyer = _eHSDbContext.Buyers.FirstOrDefault(b => b.BuyerId == buyerId),
+                Property = _eHSDbContext.Properties.FirstOrDefault(p => p.PropertyId == propertyId)
+            };
+            _eHSDbContext.Carts.Add(cart);
+            _eHSDbContext.SaveChanges();
+            return _eHSDbContext.Carts.ToList();
+        }
 
         public bool RemoveFromCart(int? id)
         {

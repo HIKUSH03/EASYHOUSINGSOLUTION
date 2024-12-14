@@ -38,16 +38,16 @@ namespace EHSWebAPI.Controllers
         }
 
 
-        //[HttpPost]
-        //[Route("addtocart/{buyerId}/{propertyId}")]
-        //public IHttpActionResult AddToCart(int buyerId, int propertyId)
-        //{
+        [HttpPost]
+        [Route("addtocart/{buyerId}/{propertyId}")]
+        public IHttpActionResult AddToCart(int buyerId, int propertyId)
+        {
 
-        //    var result = _buyerRepository.AddToCart(buyerId, propertyId);
-        //    if (result == null)
-        //        return NotFound();
-        //    return Ok(result);
-        //}
+            var result = _buyerRepository.AddToCart(buyerId, propertyId);
+            if (result == null)
+                return NotFound();
+            return Ok(result);
+        }
 
         [HttpDelete]
         [Route("removefromcart/{id}")]
