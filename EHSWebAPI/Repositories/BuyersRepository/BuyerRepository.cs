@@ -16,14 +16,22 @@ namespace EHSWebAPI.Repositories.BuyersRepository
            _eHSDbContext = eHSDbContext;
         }
 
-        
-
         public IList<Buyer> GetAllBuyers()
         {
             return _eHSDbContext.Buyers.ToList();
-            //throw new NotImplementedException();
         }
 
+        public Buyer CreateBuyer(Buyer buyer)
+        {
+
+            _eHSDbContext.Buyers.Add(buyer);
+            _eHSDbContext.SaveChanges();
+            return buyer;
+        }
+        public Property GetPropertyById(int id)
+        {
+            return _eHSDbContext.Properties.Find(id);
+        }
         public Buyer GetBuyerById(int id)
         {
             return _eHSDbContext.Buyers.Find(id);
