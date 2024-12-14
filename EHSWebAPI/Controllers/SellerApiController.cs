@@ -1,4 +1,5 @@
-﻿using EHSDataAccessLayer.Entity.Context;
+﻿using EHSDataAccessLayer.Entity;
+using EHSDataAccessLayer.Entity.Context;
 using EHSWebAPI.Repositories.SellersRepository;
 using System;
 using System.Collections.Generic;
@@ -31,24 +32,98 @@ namespace EHSWebAPI.Controllers
         }
 
         // GET: api/SellerApi/5
-        public string Get(int id)
+
+
+        [HttpGet]
+        [Route("{id}")]
+        public IHttpActionResult GetSeller(int id)
         {
-            return "value";
+            var seller = _sellerRepository.GetSellerById(id);
+            if (seller == null)
+            {
+                return NotFound();
+            }
+            return Ok(seller);
         }
 
-        // POST: api/SellerApi
-        public void Post([FromBody]string value)
+        // POST: api/sellers
+        [HttpPost]
+        [Route("")]
+        public IHttpActionResult CreateSeller([FromBody] Seller seller)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var createdSeller = _sellerRepository.CreateSeller(seller);
+            return Created(new Uri(Request.RequestUri + "/" + createdSeller.SellerId), createdSeller);
         }
 
-        // PUT: api/SellerApi/5
-        public void Put(int id, [FromBody]string value)
+        // PUT: api/sellers/{id}
+        [HttpPut]
+        [Route("{id}")]
+        public IHttpActionResult UpdateSeller(int id, [FromBody] Seller seller)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var updatedSeller = _sellerRepository.UpdateSeller(id, seller);
+            if (updatedSeller == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(updatedSeller);
         }
 
-        // DELETE: api/SellerApi/5
-        public void Delete(int id)
+        // DELETE: api/sellers/{id}
+        [HttpDelete]
+        [Route("{id}")]
+        public IHttpActionResult DeleteSeller(int id)
         {
+            var isDeleted = _sellerRepository.DeleteSeller(id);
+            if (!isDeleted)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
+
+        // POST: api/sellers/{sellerId}/properties
+        [HttpPost]
+        [Route("{sellerId}/properties")]
+        public IHttpActionResult AddProperty(int sellerId, [FromBody] Property property)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var createdProperty = _sellerRepository.AddPropertyToSeller(sellerId, property);
+            if (createdProperty == null)
+            {
+                return NotFound();
+            }
+
+            return Created(new Uri(Request.RequestUri + "/" + createdProperty.PropertyId), createdProperty);
+        }
+
+        // GET: api/sellers/{sellerId}/properties
+        [HttpGet]
+        [Route("{sellerId}/properties")]
+        public IHttpActionResult GetPropertiesBySeller(int sellerId)
+        {
+            var properties = _sellerRepository.GetPropertiesBySeller(sellerId);
+            if (properties == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(properties);
         }
     }
 }

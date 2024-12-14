@@ -19,5 +19,60 @@ namespace EHSWebAPI.Repositories.SellersRepository
         {
             return _eHSDbContext.Sellers.ToList();
         }
+        public Seller GetSellerById(int id)
+        {
+            return _eHSDbContext.Sellers.SingleOrDefault(s => s.SellerId == id);
+        }
+
+        public Seller CreateSeller(Seller seller)
+        {
+            _eHSDbContext.Sellers.Add(seller);
+            _eHSDbContext.SaveChanges();
+            return seller;
+        }
+
+        public Seller UpdateSeller(int id, Seller seller)
+        {
+            var existingSeller = _eHSDbContext.Sellers.SingleOrDefault(s => s.SellerId == id);
+            if (existingSeller == null) return null;
+
+            existingSeller.FirstName = seller.FirstName;
+            existingSeller.LastName = seller.LastName;
+            existingSeller.PhoneNo = seller.PhoneNo;
+            existingSeller.Address = seller.Address;
+            existingSeller.StateId = seller.StateId;
+            existingSeller.CityId = seller.CityId;
+            existingSeller.EmailId = seller.EmailId;
+
+            _eHSDbContext.SaveChanges();
+            return existingSeller;
+        }
+
+        public bool DeleteSeller(int id)
+        {
+            var seller = _eHSDbContext.Sellers.SingleOrDefault(s => s.SellerId == id);
+            if (seller == null) return false;
+
+            _eHSDbContext.Sellers.Remove(seller);
+            _eHSDbContext.SaveChanges();
+            return true;
+        }
+
+        public Property AddPropertyToSeller(int sellerId, Property property)
+        {
+            var seller = _eHSDbContext.Sellers.SingleOrDefault(s => s.SellerId == sellerId);
+            if (seller == null) return null;
+
+            property.SellerId = sellerId;
+            _eHSDbContext.Properties.Add(property);
+            _eHSDbContext.SaveChanges();
+
+            return property;
+        }
+
+        public IEnumerable<Property> GetPropertiesBySeller(int sellerId)
+        {
+            return _eHSDbContext.Properties.Where(p => p.SellerId == sellerId).ToList();
+        }
     }
 }
