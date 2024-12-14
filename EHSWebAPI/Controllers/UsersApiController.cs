@@ -59,7 +59,7 @@ namespace EHSWebAPI.Controllers
             return Created(new Uri(Request.RequestUri + "/" + createdUser.UserName), createdUser);
         }
 
-        // PUT: api/UsersApi/5
+       
        
 
         // DELETE: api/UsersApi/5
