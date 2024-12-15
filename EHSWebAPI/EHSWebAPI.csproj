@@ -121,6 +121,7 @@
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\CartsApiController.cs" />
     <Compile Include="Controllers\CityApiController.cs" />
     <Compile Include="Controllers\PropertiesApiController.cs" />
@@ -128,6 +129,8 @@
     <Compile Include="Controllers\BuyersController.cs" />
     <Compile Include="Controllers\StateApiController.cs" />
     <Compile Include="Controllers\UsersApiController.cs" />
+    <Compile Include="DTOs\LoginDto.cs" />
+    <Compile Include="DTOs\RegisterDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -146,6 +149,7 @@
     <Compile Include="Repositories\StatesRepository\StateRepository.cs" />
     <Compile Include="Repositories\UsersRepository\IUserRepository.cs" />
     <Compile Include="Repositories\UsersRepository\UserRepository.cs" />
+    <Compile Include="Services\AuthServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
