@@ -128,6 +128,8 @@
     <Compile Include="Controllers\SellerApiController.cs" />
     <Compile Include="Controllers\BuyersController.cs" />
     <Compile Include="Controllers\StateApiController.cs" />
+    <Compile Include="Controllers\UserLoginApiController.cs" />
+    <Compile Include="Controllers\UserRegistrationApiController.cs" />
     <Compile Include="Controllers\UsersApiController.cs" />
     <Compile Include="DTOs\LoginDto.cs" />
     <Compile Include="DTOs\RegisterDto.cs" />
@@ -141,8 +143,12 @@
     <Compile Include="Repositories\CartsRepository\ICartRepository.cs" />
     <Compile Include="Repositories\CitiesRepository\CityRepository.cs" />
     <Compile Include="Repositories\CitiesRepository\ICityRepository.cs" />
+    <Compile Include="Repositories\LoginRepository\ILoginRepository.cs" />
+    <Compile Include="Repositories\LoginRepository\LoginRepository.cs" />
     <Compile Include="Repositories\PropertiesRepository\IPropertyRepository.cs" />
     <Compile Include="Repositories\PropertiesRepository\PropertyRepository.cs" />
+    <Compile Include="Repositories\RegistrationRepository\IRegistrationRepository.cs" />
+    <Compile Include="Repositories\RegistrationRepository\RegistrationRepository.cs" />
     <Compile Include="Repositories\SellersRepository\ISellerRepository.cs" />
     <Compile Include="Repositories\SellersRepository\SellerRepository.cs" />
     <Compile Include="Repositories\StatesRepository\IStateRepository.cs" />
