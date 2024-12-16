@@ -232,6 +232,9 @@
     <Content Include="Views\Buyer\SortedByPrice.cshtml" />
     <Content Include="Views\Buyer\SearchPropertyByRegion.cshtml" />
     <Content Include="Views\Admin\ViewPropertiesByOwner.cshtml" />
+    <Content Include="Views\Buyer\ViewAllProperties.cshtml" />
+    <Content Include="Views\Buyer\Details.cshtml" />
+    <Content Include="Views\Buyer\SellerDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -57,7 +57,7 @@ namespace EHSWebAPI.Controllers
 
         // add property to cart
         [HttpPost]
-        [Route("addtocart/{id}")]
+        [Route("addtocart")]
         public IHttpActionResult AddToCart(int buyerId, [FromBody] Property property)
         {
             var result = _buyerRepository.AddToCart(buyerId, property);

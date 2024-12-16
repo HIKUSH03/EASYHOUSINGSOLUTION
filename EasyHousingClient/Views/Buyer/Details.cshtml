@@ -1,0 +1,99 @@
+﻿@model EHSDataAccessLayer.Entity.Property
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Property</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PropertyName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PropertyName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PropertyType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PropertyType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PropertyOption)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PropertyOption)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriceRange)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriceRange)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InitialDeposit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InitialDeposit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Landmark)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Landmark)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SellerId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SellerId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("See Seller Details", "SellerDetails", new { id = Model.SellerId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
