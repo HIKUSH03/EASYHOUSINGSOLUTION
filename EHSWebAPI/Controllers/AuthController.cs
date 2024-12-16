@@ -36,9 +36,13 @@ namespace EHSWebAPI.Controllers
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
-                var result = _authService.Authenticate(loginDto);
+                var (result, userType) = _authService.Authenticate(loginDto);
                 if (result == "Authenticate successful")
-                    return Ok(result);
+                {
+
+
+                    return Ok(new { Message = result, UserType = userType });
+                }
                 return BadRequest(result);
             }
         }
