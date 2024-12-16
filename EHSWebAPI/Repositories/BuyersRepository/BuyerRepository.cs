@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -28,6 +29,7 @@ namespace EHSWebAPI.Repositories.BuyersRepository
             _eHSDbContext.SaveChanges();
             return buyer;
         }
+
         public Property GetPropertyById(int id)
         {
             return _eHSDbContext.Properties.Find(id);
