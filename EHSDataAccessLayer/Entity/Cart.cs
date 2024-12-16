@@ -11,8 +11,6 @@ namespace EHSDataAccessLayer.Entity
         [Required]
         public int BuyerId { get; set; }
 
-
-
         public ICollection<Property> Properties { get; set; }
     }
 }
