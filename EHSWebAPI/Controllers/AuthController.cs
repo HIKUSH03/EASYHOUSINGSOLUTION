@@ -41,7 +41,7 @@ namespace EHSWebAPI.Controllers
                 {
 
 
-                    return Ok((result, new { Message = result, UserType = userType }));
+                    return Ok((result));
                 }
                 return BadRequest(result);
             }
