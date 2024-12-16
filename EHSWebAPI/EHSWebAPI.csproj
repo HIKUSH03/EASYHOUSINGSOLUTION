@@ -132,7 +132,8 @@
     <Compile Include="Controllers\UserRegistrationApiController.cs" />
     <Compile Include="Controllers\UsersApiController.cs" />
     <Compile Include="DTOs\LoginDto.cs" />
-    <Compile Include="DTOs\RegisterDto.cs" />
+    <Compile Include="DTOs\RegisterBuyerDto.cs" />
+    <Compile Include="DTOs\RegisterSellerDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -17,7 +17,7 @@ namespace EHSWebAPI.Services
         }
 
         //Register a New user
-        public string Register(RegisterDto registerDto)
+        public string Register(RegisterBuyerDto registerDto)
         {
             if (_context.Users.Any(u => u.UserName == registerDto.UserName))
             {
@@ -29,11 +29,61 @@ namespace EHSWebAPI.Services
                 Password = HashPassword(registerDto.Password),
                 UserType = registerDto.UserType
             };
+            var buyer = new Buyer
+            {
+                UserName = registerDto.UserName,
+                FirstName = registerDto.FirstName,
+                LastName = registerDto.LastName,
+                DateOfBirth = registerDto.DateOfBirth,
+                PhoneNo = registerDto.PhoneNo,
+                EmailId = registerDto.EmailId,
+
+            };
+
             _context.Users.Add(user);
+            _context.Buyers.Add(buyer);
             _context.SaveChanges();
 
             return "User registered successfully";
         }
+
+
+
+
+        //REgister Seller
+
+        public string Register(RegisterSellerDto registerSellerDto)
+        {
+            if (_context.Users.Any(u => u.UserName == registerSellerDto.UserName))
+            {
+                return "User already exists";
+            }
+            var user = new User
+            {
+                UserName = registerSellerDto.UserName,
+                Password = HashPassword(registerSellerDto.Password),
+                UserType = registerSellerDto.UserType
+            };
+            var seller = new Seller
+            {
+                UserName = registerSellerDto.UserName,
+                FirstName = registerSellerDto.FirstName,
+                LastName = registerSellerDto.LastName,
+                DateOfBirth = registerSellerDto.DateOfBirth,
+                PhoneNo = registerSellerDto.PhoneNo,
+                Address = registerSellerDto.Address,
+                StateId = registerSellerDto.StateId,
+                CityId = registerSellerDto.CityId,
+                EmailId = registerSellerDto.EmailId
+            };
+
+            _context.Users.Add(user);
+            _context.Sellers.Add(seller);
+            _context.SaveChanges();
+
+            return "User registered successfully";
+        }
+
 
         //Authenticate user
         public (string, string) Authenticate(LoginDto loginDto)

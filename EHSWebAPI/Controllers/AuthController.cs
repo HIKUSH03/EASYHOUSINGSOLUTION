@@ -17,12 +17,25 @@ namespace EHSWebAPI.Controllers
 
         //Register user
         [HttpPost]
-        [Route("register")]
-        public IHttpActionResult Register([FromBody] RegisterDto registerDto)
+        [Route("registerBuyer")]
+        public IHttpActionResult RegisterBuyer([FromBody] RegisterBuyerDto registerBuyerDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            var result = _authService.Register(registerDto);
+            var result = _authService.Register(registerBuyerDto);
+            if (result == "User regsitered successfully")
+                return Ok(result);
+            return BadRequest(result);
+        }
+
+        //Register Seller
+        [HttpPost]
+        [Route("registerSeller")]
+        public IHttpActionResult RegisterSeller([FromBody] RegisterSellerDto registerSellerDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var result = _authService.Register(registerSellerDto);
             if (result == "User regsitered successfully")
                 return Ok(result);
             return BadRequest(result);
