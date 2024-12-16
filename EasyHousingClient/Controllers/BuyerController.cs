@@ -29,6 +29,40 @@ namespace EasyHousingClient.Controllers
             }
         }
 
+        // see individual property
+        [HttpGet]
+        public async Task<ActionResult> Details(int id)
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync("http://localhost:54057/" + id);
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var property = JsonConvert.DeserializeObject<Property>(jsonString);
+                    return View(property);
+                }
+                return View();
+            }
+        }
+
+        // get seller details
+        [HttpGet]
+        public async Task<ActionResult> SellerDetails(int id)
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync("http://localhost:54057/api/Seller/" + id);
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var seller = JsonConvert.DeserializeObject<Seller>(jsonString);
+                    return View(seller);
+                }
+                return View();
+            }
+        }
+
         // sorted by price
         [HttpGet]
         public async Task<ActionResult> SortedByPrice()
@@ -68,5 +102,6 @@ namespace EasyHousingClient.Controllers
                 return View();
             }
         }
+
     }
 }

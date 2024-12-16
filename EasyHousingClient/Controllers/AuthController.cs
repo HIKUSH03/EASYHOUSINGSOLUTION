@@ -39,21 +39,36 @@ namespace EasyHousingClient.Controllers
 
                     //Define a temporary class to hold API response
                     var apiResult = JsonConvert.DeserializeObject<AuthResponse>(jsonResponse);
+                    if (apiResult != null)
+                    {
+                        Session["UserName"] = apiResult.UserName;
+                        Session["UserType"] = apiResult.UserType;
 
 
-                    if (apiResult.UserType == "Admin")
-                        return RedirectToAction("Index", "Admin");
-                    else if (apiResult.UserType == "Seller")
-                        return RedirectToAction("Index", "Seller");
-                    else if (apiResult.UserType == "buyer")
-                        return RedirectToAction("Index", "Buyer");
-                    else
-                        ViewBag.ErrorMessage = "Invalid user";
+                        if (apiResult.UserType == "Admin")
+                        {
+                            TempData["Message"] = $"Admin Login{Session["UserName"]}";
+                            return RedirectToAction("Login", "Auth");
+                        }
+                        else if (apiResult.UserType == "Seller")
+                        {
+                            TempData["Message"] = $"Seller Login{Session["UserName"]}";
+                            return RedirectToAction("Login", "Auth");
+                        }
+
+                        else if (apiResult.UserType == "Buyer")
+                        {
+                            TempData["Message"] = $"Buyer Login{Session["UserName"]}";
+                            return RedirectToAction("Login", "Auth");
+                        }
+                    }
+
+
                     return View();
                 }
                 else
                 {
-                    ViewBag.ErrorMessage = "Invalid username or password.";
+                    TempData["err"] = "Invalid username or password.";
                     return View();
                 }
             }
@@ -64,6 +79,7 @@ namespace EasyHousingClient.Controllers
     {
         public string Message { get; set; }
         public string UserType { get; set; }
+        public string UserName { get; set; }
 
     }
 }

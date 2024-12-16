@@ -1,0 +1,88 @@
+﻿@model IEnumerable<EHSDataAccessLayer.Entity.Property>
+
+@{
+    ViewBag.Title = "ViewAllProperties";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ViewAllProperties</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PropertyName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PropertyType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PropertyOption)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PriceRange)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InitialDeposit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Landmark)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SellerId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PropertyName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PropertyType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PropertyOption)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PriceRange)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InitialDeposit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Landmark)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SellerId)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.PropertyId })
+            @*@Html.ActionLink("Delete", "Delete", new { id=item.PropertyId })*@
+        </td>
+    </tr>
+    
+}
+
+</table>
