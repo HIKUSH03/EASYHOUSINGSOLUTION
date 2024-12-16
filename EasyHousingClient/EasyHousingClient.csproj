@@ -165,11 +165,14 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BuyerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -225,11 +228,14 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Admin\ViewPropertiesByRegion.cshtml" />
+    <Content Include="Views\Buyer\Index.cshtml" />
+    <Content Include="Views\Buyer\SortedByPrice.cshtml" />
+    <Content Include="Views\Buyer\SearchPropertyByRegion.cshtml" />
     <Content Include="Views\Admin\ViewPropertiesByOwner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Views\Auth\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
