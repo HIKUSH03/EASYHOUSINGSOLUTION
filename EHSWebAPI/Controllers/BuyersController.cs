@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 using EHSDataAccessLayer.Entity;
 using EHSDataAccessLayer.Entity.Context;
@@ -74,7 +70,7 @@ namespace EHSWebAPI.Controllers
         public IHttpActionResult RemoveFromCart(int id)
         {
             var success = _buyerRepository.RemoveFromCart(id);
-            if(success)
+            if (success)
             {
                 return Ok();
             }
