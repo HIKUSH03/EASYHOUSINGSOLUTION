@@ -49,9 +49,6 @@ namespace EHSWebAPI.Repositories.CartsRepository
             {
                 // Update the properties of the existing cart with the new values
                 existingCart.BuyerId = cart.BuyerId;
-                existingCart.Property = cart.Property;
-
-                // Save changes to the database
                 _context.SaveChanges();
             }
             else
