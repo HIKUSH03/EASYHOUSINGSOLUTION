@@ -12,8 +12,7 @@ namespace EHSWebAPI.Repositories.SellersRepository
         Seller CreateSeller(Seller seller);
         Seller UpdateSeller(int id, Seller seller);
         bool DeleteSeller(int id);
-        Property AddPropertyToSeller(int sellerId, Property property);
-        IEnumerable<Property> GetPropertiesBySeller(int sellerId);
+       
 
     }
 }

@@ -1,19 +1,44 @@
-﻿@{
-    ViewBag.Title = "Contact";
-}
-<main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
-    <h3>@ViewBag.Message</h3>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link href="https://fonts.googleapis.com/css2?family=Recoleta:wght@400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212; /* Set background color */
+            font-family: 'Recoleta', sans-serif; /* Use Recoleta font */
+            color: white; /* Set text color for better contrast */
+            margin: 0; /* Remove default margin */
+            padding: 20px; /* Add padding for content spacing */
+        }
 
-    <address>
-        One Microsoft Way<br />
-        Redmond, WA 98052-6399<br />
-        <abbr title="Phone">P:</abbr>
-        425.555.0100
-    </address>
+        h2, h3 {
+            margin: 10px 0; /* Space out headings */
+        }
 
-    <address>
-        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-    </address>
-</main>
+        address {
+            line-height: 1.5; /* Improve readability */
+        }
+    </style>
+</head>
+<body>
+    <main aria-labelledby="title">
+        <h2 id="title">@ViewBag.Title</h2>
+        <h3>@ViewBag.Message</h3>
+
+        <address>
+            One Microsoft Way<br />
+            Redmond, WA 98052-6399<br />
+            <abbr title="Phone">P:</abbr>
+            425.555.0100
+        </address>
+
+        <address>
+            <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
+            <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+        </address>
+    </main>
+</body>
+</html>

@@ -86,18 +86,18 @@ namespace EHSWebAPI.Services
 
 
         //Authenticate user
-        public (string, string) Authenticate(LoginDto loginDto)
+        public (string, string, string) Authenticate(LoginDto loginDto)
         {
             var user = _context.Users.FirstOrDefault(u => u.UserName == loginDto.UserName);
             if (user == null)
             {
-                return ("Invalid credentials", null);
+                return ("Invalid credentials", null, null);
             }
             if (user.Password != HashPassword(loginDto.Password))
             {
-                return ("Invalid credentials", null);
+                return ("Invalid credentials", null, null);
             }
-            return ("Authentication successful", user.UserType.ToString());
+            return ("Authentication successful", user.UserType.ToString(), user.UserName);
         }
 
         public string HashPassword(string password)

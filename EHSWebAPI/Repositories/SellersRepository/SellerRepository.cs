@@ -68,21 +68,6 @@ namespace EHSWebAPI.Repositories.SellersRepository
             return true;
         }
 
-        public Property AddPropertyToSeller(int sellerId, Property property)
-        {
-            var seller = _eHSDbContext.Sellers.SingleOrDefault(s => s.SellerId == sellerId);
-            if (seller == null) return null;
-
-            property.SellerId = sellerId;
-            _eHSDbContext.Properties.Add(property);
-            _eHSDbContext.SaveChanges();
-
-            return property;
-        }
-
-        public IEnumerable<Property> GetPropertiesBySeller(int sellerId)
-        {
-            return _eHSDbContext.Properties.Where(p => p.SellerId == sellerId).ToList();
-        }
+      
     }
 }

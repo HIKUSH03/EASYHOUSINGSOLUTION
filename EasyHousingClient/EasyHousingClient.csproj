@@ -169,6 +169,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BuyerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SellerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -193,6 +194,13 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\images\house.png" />
+    <Content Include="Content\images\seller1.png" />
+    <Content Include="Content\images\image1.jpg" />
+    <Content Include="Content\images\image2.jpg" />
+    <Content Include="Content\images\image3.jpg" />
+    <Content Include="Content\images\image4.jpg" />
+    <Content Include="Content\images\image7.jpg" />
+    <Content Include="Content\images\Logo.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -202,6 +210,8 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\images\image5.webp" />
+    <Content Include="Content\images\image6.webp" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -232,12 +242,17 @@
     <Content Include="Views\Buyer\SortedByPrice.cshtml" />
     <Content Include="Views\Buyer\SearchPropertyByRegion.cshtml" />
     <Content Include="Views\Admin\ViewPropertiesByOwner.cshtml" />
-
     <Content Include="Views\Buyer\ViewAllProperties.cshtml" />
     <Content Include="Views\Buyer\Details.cshtml" />
     <Content Include="Views\Buyer\SellerDetails.cshtml" />
     <Content Include="Views\Auth\Login.cshtml" />
-
+    <Content Include="Views\Seller\Index.cshtml" />
+    <Content Include="Views\Seller\Details.cshtml" />
+    <Content Include="Views\Seller\Create.cshtml" />
+    <Content Include="Views\Seller\Edit.cshtml" />
+    <Content Include="Views\Seller\Delete.cshtml" />
+    <Content Include="Views\Home\BuyerIndex.cshtml" />
+    <Content Include="Views\Home\SellerIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

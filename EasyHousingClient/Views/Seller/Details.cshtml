@@ -1,0 +1,92 @@
+﻿@model EHSDataAccessLayer.Entity.Seller
+
+@{
+    ViewBag.Title = "Seller Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center my-4 text-primary">@ViewBag.Title</h2>
+
+<div class="container">
+    <div class="card shadow-lg p-4 mb-4 rounded">
+        <h4 class="text-center mb-3">Seller Details</h4>
+        <hr />
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <dt class="col-md-4">@Html.DisplayNameFor(model => model.UserName)</dt>
+                    <dd class="col-md-8">@Html.DisplayFor(model => model.UserName)</dd>
+                </div>
+                <div class="form-group row">
+                    <dt class="col-md-4">@Html.DisplayNameFor(model => model.FirstName)</dt>
+                    <dd class="col-md-8">@Html.DisplayFor(model => model.FirstName)</dd>
+                </div>
+                <div class="form-group row">
+                    <dt class="col-md-4">@Html.DisplayNameFor(model => model.LastName)</dt>
+                    <dd class="col-md-8">@Html.DisplayFor(model => model.LastName)</dd>
+                </div>
+                <div class="form-group row">
+                    <dt class="col-md-4">@Html.DisplayNameFor(model => model.DateOfBirth)</dt>
+                    <dd class="col-md-8">@Html.DisplayFor(model => model.DateOfBirth)</dd>
+                </div>
+                <div class="form-group row">
+                    <dt class="col-md-4">@Html.DisplayNameFor(model => model.PhoneNo)</dt>
+                    <dd class="col-md-8">@Html.DisplayFor(model => model.PhoneNo)</dd>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <dt class="col-md-4">@Html.DisplayNameFor(model => model.Address)</dt>
+                    <dd class="col-md-8">@Html.DisplayFor(model => model.Address)</dd>
+                </div>
+                <div class="form-group row">
+                    <dt class="col-md-4">@Html.DisplayNameFor(model => model.StateId)</dt>
+                    <dd class="col-md-8">@Html.DisplayFor(model => model.StateId)</dd>
+                </div>
+                <div class="form-group row">
+                    <dt class="col-md-4">@Html.DisplayNameFor(model => model.CityId)</dt>
+                    <dd class="col-md-8">@Html.DisplayFor(model => model.CityId)</dd>
+                </div>
+                <div class="form-group row">
+                    <dt class="col-md-4">@Html.DisplayNameFor(model => model.EmailId)</dt>
+                    <dd class="col-md-8">@Html.DisplayFor(model => model.EmailId)</dd>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Links (Back to List Styled as Button) -->
+    <div class="text-center">
+        <p>
+            @Html.ActionLink("Back to List", "Index", new { @class = "btn btn-secondary btn-lg" })
+        </p>
+    </div>
+</div>
+
+<!-- Custom Styling -->
+<style>
+    .card {
+        border: 1px solid #ddd;
+        background-color: #f9f9f9;
+    }
+
+    dt {
+        font-weight: bold;
+    }
+
+    dd {
+        margin-bottom: 1em;
+    }
+
+    .btn {
+        margin-top: 1em;
+    }
+
+    /* Custom button styling */
+    .btn-lg {
+        font-size: 16px;
+        padding: 12px 24px;
+    }
+</style>

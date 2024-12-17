@@ -46,19 +46,19 @@ namespace EHSWebAPI.Controllers
         [Route("login")]
         public IHttpActionResult Login([FromBody] LoginDto loginDto)
         {
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var (result, userType, userName) = _authService.Authenticate(loginDto);
+            if (result == "Authentication successful")
             {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
-                var (result, userType) = _authService.Authenticate(loginDto);
-                if (result == "Authenticate successful")
-                {
-
-
-                    return Ok((result));
-                }
-                return BadRequest(result);
+                //Return both UserType And UserName in the response object
+                return Ok(new { Message = result, UserType = userType, UserName = userName });
             }
+            return BadRequest(result);
         }
+
 
 
     }
