@@ -1,99 +1,117 @@
 ﻿@model EHSDataAccessLayer.Entity.Property
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Property Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<style>
+    /* Base styles */
+    body {
+        background-color: #121212;
+        color: #ffffff;
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 20px;
+    }
 
-<div>
-    <h4>Property</h4>
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .property-details {
+        background-color: #1e1e1e;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .dl-horizontal {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+        .dl-horizontal dt {
+            font-weight: bold;
+            margin-bottom: 5px;
+            width: 30%; /* Adjust width for labels */
+        }
+
+        .dl-horizontal dd {
+            margin-bottom: 15px;
+            padding-left: 15px;
+            width: 65%; /* Adjust width for values */
+        }
+
+    p {
+        text-align: center;
+    }
+
+    .button-container {
+        text-align: center; /* Center the buttons */
+        margin-top: 20px; /* Add some space above the buttons */
+    }
+
+    .btn {
+        padding: 10px 20px;
+        background-color: #007bff; /* Button color */
+        color: white; /* Text color */
+        border: none; /* Remove border */
+        border-radius: 4px; /* Rounded corners */
+        cursor: pointer; /* Pointer cursor on hover */
+        text-decoration: none; /* Remove underline for links */
+        margin: 5px; /* Space between buttons */
+    }
+
+        .btn:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+</style>
+
+<h2>Property Details</h2>
+
+<div class="property-details">
+    <h4>Property Information</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.PropertyName)
-        </dt>
+        <dt>@Html.DisplayNameFor(model => model.PropertyName)</dt>
+        <dd>@Html.DisplayFor(model => model.PropertyName)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.PropertyName)
-        </dd>
+        <dt>@Html.DisplayNameFor(model => model.PropertyType)</dt>
+        <dd>@Html.DisplayFor(model => model.PropertyType)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PropertyType)
-        </dt>
+        <dt>@Html.DisplayNameFor(model => model.PropertyOption)</dt>
+        <dd>@Html.DisplayFor(model => model.PropertyOption)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.PropertyType)
-        </dd>
+        <dt>@Html.DisplayNameFor(model => model.Description)</dt>
+        <dd>@Html.DisplayFor(model => model.Description)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PropertyOption)
-        </dt>
+        <dt>@Html.DisplayNameFor(model => model.Address)</dt>
+        <dd>@Html.DisplayFor(model => model.Address)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.PropertyOption)
-        </dd>
+        <dt>@Html.DisplayNameFor(model => model.PriceRange)</dt>
+        <dd>@Html.DisplayFor(model => model.PriceRange)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+        <dt>@Html.DisplayNameFor(model => model.InitialDeposit)</dt>
+        <dd>@Html.DisplayFor(model => model.InitialDeposit)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+        <dt>@Html.DisplayNameFor(model => model.Landmark)</dt>
+        <dd>@Html.DisplayFor(model => model.Landmark)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
+        <dt>@Html.DisplayNameFor(model => model.IsActive)</dt>
+        <dd>@(Model.IsActive ? "Yes" : "No")</dd> <!-- Correctly display Yes/No -->
 
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PriceRange)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PriceRange)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.InitialDeposit)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.InitialDeposit)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Landmark)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Landmark)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SellerId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SellerId)
-        </dd>
-
+        <dt>@Html.DisplayNameFor(model => model.SellerId)</dt>
+        <dd>@Html.DisplayFor(model => model.SellerId)</dd>
     </dl>
 </div>
-<p>
-    @Html.ActionLink("See Seller Details", "SellerDetails", new { id = Model.SellerId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div class="button-container">
+    @Html.ActionLink("See Seller Details", "SellerDetails", new { id = Model.SellerId }, new { @class = "btn" })
+    <!-- ActionLink styled as a button -->
+
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
+    <!-- ActionLink styled as a button -->
+</div>
