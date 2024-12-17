@@ -10,6 +10,7 @@ namespace EHSWebAPI.Repositories.PropertiesRepository
         void AddProperty(Property property);
         void UpdateProperty(Property property);
 
+        bool DeleteProperty(int propertyId);
         // Specialized Query Operations
         IEnumerable<Property> GetPropertiesByRegion(string region);
         IEnumerable<Property> GetPropertiesByType(string propertyType);
