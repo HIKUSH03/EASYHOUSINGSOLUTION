@@ -8,34 +8,35 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-12">
-            <h2 class="text-center mb-4">View Properties by Owner</h2>
+            <h2 class="text-center mb-4">View Properties by Seller</h2>
         </div>
     </div>
 
-    <!-- Owner Search Form -->
+    <!-- Seller Search Form -->
     <div class="row mb-4">
         <div class="col-md-6 offset-md-3">
-            <form asp-action="ViewPropertiesByOwner" method="post" class="form-inline d-flex justify-content-center">
+            @using (Html.BeginForm("ViewPropertiesByOwner", "Base", FormMethod.Post, new { @class = "form-inline d-flex justify-content-center" }))
+            {
                 <div class="input-group">
                     <input type="text"
-                           id="owner"
-                           name="owner"
-                           value="@ViewBag.PropertyId"
+                           id="sellerId"
+                           name="sellerId"
+                           value="@ViewBag.SellerId"
                            class="form-control"
-                           placeholder="Enter Owner Id"
+                           placeholder="Enter Seller Id"
                            required />
                     <button type="submit" class="btn btn-primary ml-2">Search</button>
                 </div>
-            </form>
+            }
         </div>
     </div>
 
     <!-- Validation Messages -->
-    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    @if (!ViewData.ModelState.IsValid)
     {
         <div class="row mb-4">
             <div class="col-md-12">
-                <p class="alert alert-danger text-center">@ViewBag.ErrorMessage</p>
+                @Html.ValidationSummary(false, "", new { @class = "alert alert-danger text-center" })
             </div>
         </div>
     }
@@ -45,7 +46,7 @@
     {
         <div class="row">
             <div class="col-md-12">
-                <h4 class="text-center">Properties in @ViewBag.PropertyId</h4>
+                <h4 class="text-center">Properties for Seller: @ViewBag.SellerId</h4>
                 <table class="table table-striped table-bordered mt-3">
                     <thead class="thead-dark">
                         <tr>
@@ -81,7 +82,7 @@
                 </table>
             </div>
             <div>
-                <img src="~/Content/Images/d6.jpg" />
+                <img src="~/Content/Images/d6.jpg" alt="Decorative" />
             </div>
         </div>
     }
@@ -89,7 +90,7 @@
     {
         <div class="row">
             <div class="col-md-12">
-                <p class="alert alert-info text-center">No properties found for the entered region.</p>
+                <p class="alert alert-info text-center">No properties found for the entered seller ID.</p>
             </div>
         </div>
     }

@@ -1,7 +1,10 @@
-﻿using EHSDataAccessLayer.Entity;
+﻿using EasyHousingClient.Models;
+using EHSDataAccessLayer.Entity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -10,6 +13,9 @@ namespace EasyHousingClient.Controllers
 {
     public class AdminController : BaseController
     {
+        private readonly string _adminApiUrl = "http://localhost:54057/api/property";
+
+
         [HttpGet]
         public ActionResult ViewPropertiesByRegion()
         {
@@ -56,9 +62,9 @@ namespace EasyHousingClient.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> ViewPropertiesByOwner(int id)
+        public async Task<ActionResult> ViewPropertiesByOwner(int sellerId)
         {
-            if (id<=0)
+            if (sellerId <= 0)
             {
                 ModelState.AddModelError("", "Please enter a valid Owner Id.");
                 return View(new List<Property>());
@@ -66,15 +72,19 @@ namespace EasyHousingClient.Controllers
 
             try
             {
-                // Get properties from API
-                var properties = await GetFromApi<List<Property>>($"id?id={HttpUtility.UrlEncode("{id}")}");
+                // Encode the sellerId as a string for URL encoding (though for integers it's often unnecessary)
+                var query = $"seller?sellerId={HttpUtility.UrlEncode(sellerId.ToString())}";
+
+                // Fetch properties from API
+                var properties = await GetFromApi<List<Property>>(query);
 
                 if (properties == null || properties.Count == 0)
                 {
                     ModelState.AddModelError("", "No properties found for the entered Owner Id.");
                 }
 
-                ViewBag.PropertyId = id; // Pass the id back to the view for display
+                // Pass the sellerId back to the view. Adjust naming if needed (e.g., ViewBag.SellerId instead of PropertyId).
+                ViewBag.SellerId = sellerId;
                 return View(properties);
             }
             catch (Exception ex)
@@ -83,5 +93,27 @@ namespace EasyHousingClient.Controllers
                 return View(new List<Property>());
             }
         }
+
+        
+
+
+        [HttpPost]
+        public async Task<ActionResult> Index()
+        {
+
+            var properties = await GetFromApi<List<Property>>($"api/property");
+
+            //using (var client = new HttpClient())
+            //{
+            //    client.BaseAddress = new Uri(_adminApiUrl);
+
+            //    var response = await client.GetAsync(client.BaseAddress.ToString());
+            //    var list = JsonConvert.DeserializeObject<Property>(_adminApiUrl);
+
+                // Pass the model to the view
+                return View(properties);
+            
+        }
+
     }
 }
