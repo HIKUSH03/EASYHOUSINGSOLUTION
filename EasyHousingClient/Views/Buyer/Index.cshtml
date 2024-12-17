@@ -1,6 +1,7 @@
 ﻿@model List<EHSDataAccessLayer.Entity.Property>
 @{
     ViewBag.Title = "Index";
+    //var customer = Session["user"] as customer;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -45,8 +46,14 @@
                     <td>@property.Address</td>
                     <td>
                         @*@Html.ActionLink("Edit", "Edit", new { id = property.PropertyId }) |*@
-                        @Html.ActionLink("Details", "Details", new { id = property.PropertyId }) | 
-                        @Html.ActionLink("🛒", "Delete", new { id = property.PropertyId })
+                        @Html.ActionLink("Details", "Details", new { id = property.PropertyId }) |
+                        @*Not working*@
+                        @*@Html.ActionLink("Add 🛒", "AddToCart", new { id = 1 })*@
+                        @* Add to cart button which do a post api call whithout refreshing the page *@
+                        <form method="post" asp-action="AddToCart">
+                            <input type="hidden" name="propertyId" value="@property.PropertyId" />
+                            <input type="submit" class="btn btn-primary" value="Add 🛒" />
+                        </form>
                     </td>
                 </tr>
             }

@@ -29,6 +29,7 @@ namespace EasyHousingClient.Controllers
             }
         }
 
+
         // see individual property
         [HttpGet]
         public async Task<ActionResult> Details(int id)
@@ -63,6 +64,14 @@ namespace EasyHousingClient.Controllers
             }
         }
 
+        //add property to cart
+        //[HttpPost]
+        //public async Task<ActionResult> AddToCart(string ids)
+        //{
+            
+
+        //}
+
         // sorted by price
         [HttpGet]
         public async Task<ActionResult> SortedByPrice()
@@ -80,19 +89,33 @@ namespace EasyHousingClient.Controllers
             }
         }
 
-
+        // search property by region
         [HttpGet]
-        public ActionResult SearchPropertyByRegion()
+        public async Task<ActionResult> SearchPropertyByRegion()
         {
-            return View(new List<Property>());
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync("http://localhost:54057/");
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var properties = JsonConvert.DeserializeObject<List<Property>>(jsonString);
+                    return View(properties);
+                }
+                return View();
+            }
+            //return View(new List<Property>());
         }
 
         [HttpPost]
         public async Task<ActionResult> SearchPropertyByRegion(string region)
         {
+            var url = "http://localhost:54057/";
+            if(region != string.Empty)
+                url += "region?region=" + region;
             using (HttpClient httpClient = new HttpClient())
             {
-                var response = await httpClient.GetAsync("http://localhost:54057/region?region=" + region);
+                var response = await httpClient.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
                     var jsonString = await response.Content.ReadAsStringAsync();
@@ -102,6 +125,5 @@ namespace EasyHousingClient.Controllers
                 return View();
             }
         }
-
     }
 }

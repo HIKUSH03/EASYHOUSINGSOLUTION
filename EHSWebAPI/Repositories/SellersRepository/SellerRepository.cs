@@ -24,6 +24,16 @@ namespace EHSWebAPI.Repositories.SellersRepository
             return _eHSDbContext.Sellers.SingleOrDefault(s => s.SellerId == id);
         }
 
+        public int GetSellerByUsername(string username)
+        {
+            var response = _eHSDbContext.Sellers.FirstOrDefault(x => x.UserName == username).SellerId;
+            if (response == 0)
+            {
+                return -1;
+            }
+            return response;
+        }
+
         public Seller CreateSeller(Seller seller)
         {
             _eHSDbContext.Sellers.Add(seller);

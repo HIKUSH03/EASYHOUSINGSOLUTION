@@ -22,6 +22,16 @@ namespace EHSWebAPI.Repositories.BuyersRepository
             return _eHSDbContext.Buyers.ToList();
         }
 
+        public int GetBuyerByUsername(string username)
+        {
+            var response = _eHSDbContext.Buyers.FirstOrDefault(x => x.UserName == username).BuyerId;
+            if(response == 0)
+            {
+                return -1;
+            }
+            return response;
+        }
+
         public Buyer CreateBuyer(Buyer buyer)
         {
 

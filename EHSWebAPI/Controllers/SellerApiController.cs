@@ -31,6 +31,17 @@ namespace EHSWebAPI.Controllers
             return Ok(values);
         }
 
+        // get seller by username
+        [HttpGet]
+        [Route("seller/{username}")]
+        public IHttpActionResult GetSellerByUsername(string username)
+        {
+            var result = _sellerRepository.GetSellerByUsername(username);
+            if (result == -1)
+                return NotFound();
+            return Ok(result);
+        }
+
         // GET: api/SellerApi/5
 
 
