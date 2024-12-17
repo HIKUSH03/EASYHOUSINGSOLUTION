@@ -75,7 +75,7 @@ namespace EHSWebAPI.Controllers
 
             _repository.UpdateProperty(property);
             _repository.Save();
-            return StatusCode(HttpStatusCode.NoContent);
+            return StatusCode(HttpStatusCode.NoContent);  // Status Code 204 (No Content)
         }
 
         // Specialized Query Operations
