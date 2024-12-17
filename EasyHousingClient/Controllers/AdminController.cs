@@ -13,7 +13,7 @@ namespace EasyHousingClient.Controllers
 {
     public class AdminController : BaseController
     {
-        private readonly string _adminApiUrl = "http://localhost:54057/api/property";
+        private readonly string _adminApiUrl = "http://localhost:54057/";
 
 
         [HttpGet]
@@ -97,21 +97,13 @@ namespace EasyHousingClient.Controllers
         
 
 
-        [HttpPost]
+        [HttpGet]
         public async Task<ActionResult> Index()
         {
 
-            var properties = await GetFromApi<List<Property>>($"api/property");
+            var properties = await GetFromApi<List<Property>>("api/property");
 
-            //using (var client = new HttpClient())
-            //{
-            //    client.BaseAddress = new Uri(_adminApiUrl);
-
-            //    var response = await client.GetAsync(client.BaseAddress.ToString());
-            //    var list = JsonConvert.DeserializeObject<Property>(_adminApiUrl);
-
-                // Pass the model to the view
-                return View(properties);
+            return View(properties);
             
         }
 
