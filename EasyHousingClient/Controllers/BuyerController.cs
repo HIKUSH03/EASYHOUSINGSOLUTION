@@ -64,14 +64,6 @@ namespace EasyHousingClient.Controllers
             }
         }
 
-        //add property to cart
-        //[HttpPost]
-        //public async Task<ActionResult> AddToCart(string ids)
-        //{
-            
-
-        //}
-
         // sorted by price
         [HttpGet]
         public async Task<ActionResult> SortedByPrice()
