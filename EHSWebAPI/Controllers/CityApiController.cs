@@ -29,8 +29,15 @@ namespace EHSWebAPI.Controllers
             [Route("")]
             public IHttpActionResult GetAllCities()
             {
-                var cities = _cityRepository.GetAllCities();
-                return Ok(cities);
+                try
+                {
+                    var cities = _cityRepository.GetAllCities();
+                    return Ok(cities);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("An error occurred while retrieving all cities.", ex);
+                }
             }
 
             // GET: api/city/{id}
@@ -38,11 +45,18 @@ namespace EHSWebAPI.Controllers
             [Route("{id:int}")]
             public IHttpActionResult GetCityById(int id)
             {
-                var city = _cityRepository.GetCityById(id);
-                if (city == null)
-                    return NotFound();
+                try
+                {
+                    var city = _cityRepository.GetCityById(id);
+                    if (city == null)
+                        return NotFound();
 
-                return Ok(city);
+                    return Ok(city);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"An error occurred while retrieving the city with ID {id}.", ex);
+                }
             }
 
             // GET: api/city/state/{stateId}
@@ -50,8 +64,15 @@ namespace EHSWebAPI.Controllers
             [Route("state/{stateId:int}")]
             public IHttpActionResult GetCitiesByState(int stateId)
             {
-                var cities = _cityRepository.GetCitiesByState(stateId);
-                return Ok(cities);
+                try
+                {
+                    var cities = _cityRepository.GetCitiesByState(stateId);
+                    return Ok(cities);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"An error occurred while retrieving cities for state ID {stateId}.", ex);
+                }
             }
 
             // POST: api/city
@@ -59,11 +80,18 @@ namespace EHSWebAPI.Controllers
             [Route("")]
             public IHttpActionResult AddCity([FromBody] City city)
             {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
+                try
+                {
+                    if (!ModelState.IsValid)
+                        return BadRequest(ModelState);
 
-                _cityRepository.AddCity(city);
-                return Created($"api/city/{city.CityId}", city);
+                    _cityRepository.AddCity(city);
+                    return Created($"api/city/{city.CityId}", city);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("An error occurred while adding a new city.", ex);
+                }
             }
 
             // PUT: api/city/{id}
@@ -71,9 +99,16 @@ namespace EHSWebAPI.Controllers
             [Route("{id:int}")]
             public IHttpActionResult UpdateCity(int id, [FromBody] City city)
             {
-                city.CityId = id;
-                _cityRepository.UpdateCity(city);
-                return Ok(city);
+                try
+                {
+                    city.CityId = id;
+                    _cityRepository.UpdateCity(city);
+                    return Ok(city);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"An error occurred while updating the city with ID {id}.", ex);
+                }
             }
 
             // DELETE: api/city/{id}
@@ -81,8 +116,15 @@ namespace EHSWebAPI.Controllers
             [Route("{id:int}")]
             public IHttpActionResult DeleteCity(int id)
             {
-                _cityRepository.DeleteCity(id);
-                return Ok();
+                try
+                {
+                    _cityRepository.DeleteCity(id);
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"An error occurred while deleting the city with ID {id}.", ex);
+                }
             }
         }
     }
