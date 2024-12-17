@@ -54,6 +54,13 @@ namespace EHSWebAPI.Repositories.BuyersRepository
             return _eHSDbContext.Properties.ToList().OrderBy(x => x.PriceRange);
         }
 
+        // get cart by buyer id
+        public Cart GetCartByBuyerId(int buyerId)
+        {
+            var result = _eHSDbContext.Buyers.Find(buyerId);
+            return result.Cart;
+        }
+
         // Add property to cart
         public bool AddToCart(int buyerId, Property property)
         {

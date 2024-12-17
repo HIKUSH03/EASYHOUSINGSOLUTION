@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using EHSDataAccessLayer.Entity;
 using Newtonsoft.Json;
 
 namespace EasyHousingClient.Controllers
 {
-    public class BuyerController : BaseController
+    public class BuyerController : SecurityController
     {
         // get all properties
         [HttpGet]
@@ -18,7 +15,7 @@ namespace EasyHousingClient.Controllers
         {
             using (HttpClient httpClient = new HttpClient())
             {
-                var response = await httpClient.GetAsync("http://localhost:54057/");
+                var response = await httpClient.GetAsync("http://localhost:54057/api/property");
                 if (response.IsSuccessStatusCode)
                 {
                     var jsonString = await response.Content.ReadAsStringAsync();
@@ -36,7 +33,7 @@ namespace EasyHousingClient.Controllers
         {
             using (HttpClient httpClient = new HttpClient())
             {
-                var response = await httpClient.GetAsync("http://localhost:54057/" + id);
+                var response = await httpClient.GetAsync("http://localhost:54057/api/property/" + id);
                 if (response.IsSuccessStatusCode)
                 {
                     var jsonString = await response.Content.ReadAsStringAsync();
@@ -64,14 +61,6 @@ namespace EasyHousingClient.Controllers
             }
         }
 
-        //add property to cart
-        //[HttpPost]
-        //public async Task<ActionResult> AddToCart(string ids)
-        //{
-            
-
-        //}
-
         // sorted by price
         [HttpGet]
         public async Task<ActionResult> SortedByPrice()
@@ -95,7 +84,7 @@ namespace EasyHousingClient.Controllers
         {
             using (HttpClient httpClient = new HttpClient())
             {
-                var response = await httpClient.GetAsync("http://localhost:54057/");
+                var response = await httpClient.GetAsync("http://localhost:54057/api/property");
                 if (response.IsSuccessStatusCode)
                 {
                     var jsonString = await response.Content.ReadAsStringAsync();
@@ -110,9 +99,11 @@ namespace EasyHousingClient.Controllers
         [HttpPost]
         public async Task<ActionResult> SearchPropertyByRegion(string region)
         {
-            var url = "http://localhost:54057/";
-            if(region != string.Empty)
-                url += "region?region=" + region;
+            // http://localhost:54057/api/property/region?region=pune
+
+            var url = "http://localhost:54057/api/property";
+            if (region != string.Empty)
+                url += "/region?region=" + region;
             using (HttpClient httpClient = new HttpClient())
             {
                 var response = await httpClient.GetAsync(url);

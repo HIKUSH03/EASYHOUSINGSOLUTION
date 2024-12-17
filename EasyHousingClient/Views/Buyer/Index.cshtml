@@ -1,21 +1,20 @@
-﻿@model List<EHSDataAccessLayer.Entity.Property>
-@{
-    ViewBag.Title = "Index";
-    //var customer = Session["user"] as customer;
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@{
+
+}
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Real Estate Search</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-/* Base styles */
+        /* Base styles */
         .cart-icon-container {
             position: fixed;
-            top: 100px; /* Position it below the navbar */
+            top: 110px;
             right: 20px;
             z-index: 999;
             background-color: #4CAF50;
@@ -55,281 +54,178 @@
             font-size: 12px;
             font-weight: bold;
         }
-body {
-    background-color: #121212;
-    color: #ffffff;
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-}
 
-.search-container {
-    max-width: 1200px;
-    margin: 3rem auto;
-    padding: 0 1rem;
-}
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-/* Search form styles */
-.search-form {
-    background-color: #1e1e1e;
-    padding: 2rem;
-    border-radius: 10px;
-    text-align: center;
-    margin-bottom: 2rem;
-}
+        .search-container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+        }
 
-.region-search-btn {
-    background-color: #2d2d2d;
-    color: white;
-    padding: 1rem 2rem;
-    border: 1px solid #333;
-    border-radius: 5px;
-    cursor: pointer;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
-    transition: background-color 0.3s;
-}
+        .search-form {
+            background-color: #1e1e1e;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
 
-.region-search-btn:hover {
-    background-color: #383838;
-}
+        .region-search-btn {
+            background-color: #2d2d2d;
+            color: white;
+            padding: 1rem 2rem;
+            border: 1px solid #333;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
 
-/* Filter styles */
-.filters {
-    display: flex;
-    justify-content: flex-end;
-    margin: 1rem 0;
-    gap: 1rem;
-}
+            .region-search-btn:hover {
+                background-color: #383838;
+            }
 
-.sort-button {
-    padding: 0.75rem 1.5rem;
-    border: 1px solid #333;
-    background-color: #2d2d2d;
-    color: #ffffff;
-    border-radius: 5px;
-    cursor: pointer;
-    font-family: 'Poppins', sans-serif;
-    transition: background-color 0.3s;
-}
+        .filters {
+            display: flex;
+            justify-content: flex-end;
+            margin: 1rem 0;
+            gap: 1rem;
+        }
 
-.sort-button:hover {
-    background-color: #383838;
-}
+        .sort-button {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid #333;
+            background-color: #2d2d2d;
+            color: #ffffff;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s;
+        }
 
-.sort-button.active {
-    background-color: #1e1e1e;
-    border-color: #4CAF50;
-}
+            .sort-button:hover {
+                background-color: #383838;
+            }
 
-/* Property grid styles */
-.property-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-top: 2rem;
-}
+            .sort-button.active {
+                background-color: #1e1e1e;
+                border-color: #4CAF50;
+            }
 
-/* Property card styles */
-.property-card {
-    background-color: #1e1e1e;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.3s;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
 
-.property-card:hover {
-    transform: translateY(-5px);
-}
+        .property-card {
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
-.property-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
+            .property-card:hover {
+                transform: translateY(-5px);
+            }
 
-.property-info {
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    min-height: 200px;
-}
+        .property-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
 
-.property-price {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #4CAF50;
-    margin-bottom: 0.5rem;
-}
+        .property-info {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            min-height: 200px;
+        }
 
-.property-name {
-    font-size: 1.2rem;
-    font-weight: 500;
-    margin: 0.5rem 0;
-    line-height: 1.4;
-}
+        .property-price {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #4CAF50;
+            margin-bottom: 0.5rem;
+        }
 
-.property-location {
-    color: #999;
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-}
+        .property-name {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin: 0.5rem 0;
+            line-height: 1.4;
+        }
 
-.property-type {
-    display: inline-block;
-    background-color: #2d2d2d;
-    padding: 0.25rem 0.75rem;
-    border-radius: 15px;
-    font-size: 0.875rem;
-    color: #ccc;
-    margin-top: 0.5rem;
-    margin-bottom: 1rem;
-}
+        .property-location {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
 
-.button-group {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: auto;
-    padding-top: 1rem;
-}
+        .button-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: auto;
+            padding-top: 1rem;
+        }
 
-.details-button, .cart-button {
-    flex: 1;
-    padding: 0.75rem 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
+        .details-button, .cart-button {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
 
-.details-button {
-    background-color: #007bff;
-    color: white;
-}
+        .details-button {
+            background-color: #007bff;
+            color: white;
+        }
 
-.details-button:hover {
-    background-color: #0056b3;
-}
+            .details-button:hover {
+                background-color: #0056b3;
+            }
 
-.cart-button {
-    background-color: #4CAF50;
-    color: white;
-}
+        .cart-button {
+            background-color: #4CAF50;
+            color: white;
+        }
 
-.cart-button:hover {
-    background-color: #45a049;
-}
-
-/* Modal styles */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 1000;
-}
-
-.modal-content {
-    background-color: #1e1e1e;
-    margin: 5% auto;
-    padding: 2rem;
-    border-radius: 10px;
-    max-width: 800px;
-    position: relative;
-    max-height: 90vh;
-    overflow-y: auto;
-}
-
-.close-modal {
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
-    font-size: 2rem;
-    cursor: pointer;
-    color: #999;
-}
-
-.close-modal:hover {
-    color: #fff;
-}
-
-/* Property details styles */
-.property-details {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-}
-
-.detail-image {
-    width: 100%;
-    border-radius: 8px;
-}
-
-.detail-info {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.detail-item {
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 1rem;
-}
-
-.detail-label {
-    color: #999;
-    font-size: 0.9rem;
-}
-
-.detail-value {
-    color: #fff;
-}
-
-/* Responsive design */
-@*@media (max-width: 1024px) {
-    .property-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    .property-grid {
-        grid-template-columns: 1fr;
-    }*@
-
-    .property-details {
-        grid-template-columns: 1fr;
-    }
-}
-
-        /* Rest of the styles remain the same */
-        /* ... (keep all the modal and other styles from previous version) ... */
-
+            .cart-button:hover {
+                background-color: #45a049;
+            }
     </style>
 </head>
 <body>
-
     <div class="search-container">
         <div class="search-form">
-            <button class="region-search-btn">
-                <i class="fas fa-search-location"></i> Search by Region
+            <button class="region-search-btn">  
+                <i class="fas fa-search-location"></i>
+                @Html.ActionLink("Search By Region", "SearchPropertyByRegion", "Buyer", new { @class = "" })
             </button>
         </div>
 
@@ -339,243 +235,73 @@ body {
         </div>
 
         <div class="filters">
-            <button class="sort-button" onclick="sortProperties('price')">
-                <i class="fas fa-sort-amount-down"></i> Sort by Price
-            </button>
-            <button class="sort-button" onclick="sortProperties('relevance')">
-                <i class="fas fa-sort"></i> Sort by Relevance
-            </button>
+            <div>
+                @Html.ActionLink("Sort By Price", "SortedByPrice", "Buyer", new { @class = "btn btn-outline-primary" })
+            </div>
         </div>
 
-        <div class="property-grid" id="propertyResults">
-        </div>
-    </div>
-
-    <!-- Keep the modal code the same -->
-    <div class="modal" id="propertyModal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <div id="propertyDetails"></div>
-        </div>
-    </div>
-
-    <script>
-        const sampleProperties = [
-            {
-                image: '/api/placeholder/300/200',
-                price: 750000,
-                name: 'Modern Downtown Apartment',
-                location: 'Los Angeles, CA',
-                type: 'apartment',
-                relevanceScore: 95,
-                bedrooms: 2,
-                bathrooms: 2,
-                area: '1,200 sq ft',
-                yearBuilt: 2020,
-                description: 'Luxurious modern apartment in the heart of downtown with stunning city views.'
-            },
-            {
-                image: '/api/placeholder/300/200',
-                price: 1200000,
-                name: 'Luxury Beachfront Condo',
-                location: 'Miami, FL',
-                type: 'condo',
-                relevanceScore: 88,
-                bedrooms: 3,
-                bathrooms: 3,
-                area: '2,000 sq ft',
-                yearBuilt: 2019,
-                description: 'Spectacular beachfront condo with panoramic ocean views and high-end finishes.'
-            },
-            {
-                <tr class="@(property.IsActive ? "" : "d-none")">
-                    <td>@property.PropertyId</td>
-                    <td>@property.PropertyName</td>
-                    <td>@property.PropertyType</td>
-                    <td>@property.PropertyOption</td>
-                    <td>@property.Description</td>
-                    <td>@property.PriceRange</td>
-                    <td>@property.InitialDeposit</td>
-                    <td>@property.Landmark</td>
-                    <td>@property.Address</td>
-                    <td>
-                        @*@Html.ActionLink("Edit", "Edit", new { id = property.PropertyId }) |*@
-                        @Html.ActionLink("Details", "Details", new { id = property.PropertyId }) |
-                        @*Not working*@
-                        @*@Html.ActionLink("Add 🛒", "AddToCart", new { id = 1 })*@
-                        @* Add to cart button which do a post api call whithout refreshing the page *@
-                        <form method="post" asp-action="AddToCart">
-                            <input type="hidden" name="propertyId" value="@property.PropertyId" />
-                            <input type="submit" class="btn btn-primary" value="Add 🛒" />
-                        </form>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <h1>No properties found!</h1>
-}
-                image: '/api/placeholder/300/200',
-                price: 550000,
-                name: 'Cozy Suburban House',
-                location: 'Austin, TX',
-                type: 'house',
-                relevanceScore: 92,
-                bedrooms: 4,
-                bathrooms: 2.5,
-                area: '2,500 sq ft',
-                yearBuilt: 2015,
-                description: 'Family-friendly home in a quiet suburban neighborhood with a spacious backyard.'
-            }
-        ];
-
-        let currentSortKey = 'relevance';
-        let priceAscending = true;
-
-        function displayProperties(properties) {
-            const container = document.getElementById('propertyResults');
-            container.innerHTML = '';
-
-            properties.forEach((property, index) => {
-                const card = `
-                        <div class="property-card">
-                            <img src="${property.image}" alt="${property.name}" class="property-image">
-                            <div class="property-info">
-                                <div class="property-price">$${property.price.toLocaleString()}</div>
-                                <h3 class="property-name">${property.name}</h3>
-                                <div class="property-location">📍 ${property.location}</div>
-                                <div class="property-type">${property.type.charAt(0).toUpperCase() + property.type.slice(1)}</div>
-                                <div class="button-group">
-                                    <button class="details-button" onclick="showPropertyDetails(${index})">
-                                        <i class="fas fa-info-circle"></i> Details
-                                    </button>
-                                    <button class="cart-button" onclick="addToCart(${index})">
-                                        <i class="fas fa-shopping-cart"></i> Add
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                container.insertAdjacentHTML('beforeend', card);
-            });
-        }
-
-        function sortProperties(key) {
-            let properties = [...sampleProperties];
-
-            if (key === 'price') {
-                priceAscending = !priceAscending;
-                properties.sort((a, b) => priceAscending ? a.price - b.price : b.price - a.price);
-            } else if (key === 'relevance') {
-                properties.sort((a, b) => b.relevanceScore - a.relevanceScore);
-            }
-
-            currentSortKey = key;
-            updateSortButtons();
-            displayProperties(properties);
-        }
-
-        function updateSortButtons() {
-            const buttons = document.querySelectorAll('.sort-button');
-            buttons.forEach(button => {
-                button.classList.remove('active');
-                if ((button.textContent.includes('Price') && currentSortKey === 'price') ||
-                    (button.textContent.includes('Relevance') && currentSortKey === 'relevance')) {
-                    button.classList.add('active');
-                }
-            });
-        }
-
-        // Keep the modal functions the same
-        function showPropertyDetails(index) {
-            const property = sampleProperties[index];
-            const modal = document.getElementById('propertyModal');
-            const detailsContainer = document.getElementById('propertyDetails');
-
-            // Keep the modal content the same as before
-            detailsContainer.innerHTML = `
-                    <div class="property-details">
-                        <img src="${property.image}" alt="${property.name}" class="detail-image">
-                        <div class="detail-info">
-                            <h2>${property.name}</h2>
-                            <div class="property-price">$${property.price.toLocaleString()}</div>
-                            <div class="detail-item">
-                                <div class="detail-label">Location</div>
-                                <div class="detail-value">${property.location}</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-label">Property Type</div>
-                                <div class="detail-value">${property.type.charAt(0).toUpperCase() + property.type.slice(1)}</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-label">Bedrooms</div>
-                                <div class="detail-value">${property.bedrooms}</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-label">Bathrooms</div>
-                                <div class="detail-value">${property.bathrooms}</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-label">Area</div>
-                                <div class="detail-value">${property.area}</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-label">Year Built</div>
-                                <div class="detail-value">${property.yearBuilt}</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-label">Description</div>
-                                <div class="detail-value">${property.description}</div>
+        @if (Model != null && Model.Count > 0)
+        {
+            <div class="property-grid">
+                @foreach (var property in Model)
+                {
+                    <div class="property-card">
+                        <img src="https://placehold.co/300x200.png" alt="@property.PropertyName" class="property-image" />
+                        <div class="property-info">
+                            <div class="property-price">$@property.PriceRange.ToString("N0")</div>
+                            <h3 class="property-name">@property.PropertyName</h3>
+                            <div class="property-location">📍 @property.Address</div>
+                            <div class="button-group">
+                                <a href="@Url.Action("Details", "Buyer", new { id = property.PropertyId })" class="details-button">
+                                    <i class="fas fa-info-circle"></i> Details
+                                </a>
+                                <button class="cart-button" onclick="addToCart(@property.PropertyId)">
+                                    <i class="fas fa-shopping-cart"></i> Add
+                                </button>
                             </div>
                         </div>
                     </div>
-                `;
-
-            modal.style.display = 'block';
+                }
+            </div>
         }
 
-        function closeModal() {
-            document.getElementById('propertyModal').style.display = 'none';
-        }
-
-        function addToCart(index) {
-            alert(`Added ${sampleProperties[index].name} to cart!`);
-        }
-
-        // Close modal when clicking outside
-        window.onclick = function (event) {
-            const modal = document.getElementById('propertyModal');
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        }
-
-        // Display initial properties
-        displayProperties(sampleProperties);
-
-        // Cart Script
+        <script>
         let cartCount = 0;
 
         function updateCartBadge() {
             document.getElementById('cartBadge').textContent = cartCount;
         }
 
-        function addToCart(index) {
+        function addToCart(propertyId) {
             cartCount++;
             updateCartBadge();
-            alert(`Added ${sampleProperties[index].name} to cart!`);
+            // You can make an AJAX call to add the property to the cart
+            $.post('/Cart/Add', { propertyId: propertyId })
+                .done(function () {
+                    alert('Property added to cart successfully!');
+                })
+                .fail(function () {
+                    alert('Failed to add property to cart.');
+                    cartCount--; // Revert the count if the operation failed
+                    updateCartBadge();
+                });
         }
 
         function goToCart() {
-            // Replace 'Cart' with your actual controller name if different
-            window.location.href = '/Cart';
+            window.location.href = '@Url.Action("Index", "Cart")';
+        }
+
+        function sortProperties(key) {
+            const button = event.target.closest('.sort-button');
+            document.querySelectorAll('.sort-button').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            // You can implement server-side sorting by redirecting with sort parameters
+            window.location.href = '@Url.Action("Index", "Buyer")' + '?sortBy=' + key;
         }
 
         // Initialize cart badge
         updateCartBadge();
-    </script>
+        </script>
 </body>
 </html>

@@ -1,51 +1,18 @@
-﻿@model List<EHSDataAccessLayer.Entity.Property>
+﻿@model IEnumerable<EHSDataAccessLayer.Entity.Property>
 
 @{
-    ViewBag.Title = "View Properties by Region";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container mt-4">
-    <div class="row">
-        <div class="col-md-12">
-            <h2 class="text-center mb-4">View Properties by Region</h2>
-        </div>
-    </div>
-
-    <!-- Region Input Form -->
-    <div class="row mb-4">
-        <div class="col-md-6 offset-md-3">
-            <form asp-action="ViewPropertiesByRegion" method="post" class="form-inline d-flex justify-content-center">
-                <div class="input-group">
-                    <input type="text"
-                           id="region"
-                           name="region"
-                           value="@ViewBag.Region"
-                           class="form-control"
-                           placeholder="Enter Region"
-                           required />
-                    <button type="submit" class="btn btn-primary ml-2">Search</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Validation Messages -->
-    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
-    {
-        <div class="row mb-4">
-            <div class="col-md-12">
-                <p class="alert alert-danger text-center">@ViewBag.ErrorMessage</p>
-            </div>
-        </div>
-    }
-
+    
     <!-- Properties Table -->
     @if (Model != null && Model.Any())
     {
         <div class="row">
             <div class="col-md-12">
-                <h4 class="text-center">Properties in @ViewBag.Region</h4>
+                <h4 class="text-center">Properties</h4>
                 <table class="table table-striped table-bordered mt-3">
                     <thead class="thead-dark">
                         <tr>
@@ -84,13 +51,8 @@
                 <img src="~/Content/Images/d6.jpg" />
             </div>
         </div>
-    }
-    else if (Model != null && !Model.Any())
-    {
-        <div class="row">
-            <div class="col-md-12">
-                <p class="alert alert-info text-center">No properties found for the entered region.</p>
-            </div>
+        <div>
+            
         </div>
     }
 </div>

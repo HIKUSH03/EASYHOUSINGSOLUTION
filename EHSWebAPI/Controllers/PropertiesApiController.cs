@@ -7,6 +7,7 @@ using EHSWebAPI.Repositories.PropertiesRepository;
 
 namespace EHSWebAPI.Controllers
 {
+    [RoutePrefix("api/property")]
     public class PropertiesApiController : ApiController
     {
         private readonly IPropertyRepository _repository;
@@ -30,7 +31,6 @@ namespace EHSWebAPI.Controllers
             }
             catch (Exception ex)
             {
-
                 return InternalServerError(new Exception("An error occurred while retrieving all properties.", ex));
             }
         }
@@ -50,7 +50,6 @@ namespace EHSWebAPI.Controllers
             }
             catch (Exception ex)
             {
-
                 return InternalServerError(new Exception($"An error occurred while retrieving the property with ID {id}.", ex));
             }
         }
@@ -72,7 +71,6 @@ namespace EHSWebAPI.Controllers
             }
             catch (Exception ex)
             {
-
                 return InternalServerError(new Exception("An error occurred while adding the property.", ex));
             }
         }
@@ -99,7 +97,6 @@ namespace EHSWebAPI.Controllers
             }
             catch (Exception ex)
             {
-                // Optionally log the exception here
                 return InternalServerError(new Exception($"An error occurred while updating the property with ID {id}.", ex));
             }
         }
@@ -213,6 +210,19 @@ namespace EHSWebAPI.Controllers
             {
                 return InternalServerError(new Exception($"An error occurred while deactivating the property with ID {id}.", ex));
             }
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public IHttpActionResult DeleteSeller(int id)
+        {
+            var isDeleted = _repository.DeleteProperty(id);
+            if (!isDeleted)
+            {
+                return NotFound();
+            }
+
+            return Ok();
         }
     }
 }
