@@ -74,7 +74,7 @@ namespace EasyHousingClient.Controllers
                     ModelState.AddModelError("", "No properties found for the entered Owner Id.");
                 }
 
-                ViewBag.PropertyId = id; // Pass the region back to the view for display
+                ViewBag.PropertyId = id; // Pass the id back to the view for display
                 return View(properties);
             }
             catch (Exception ex)
