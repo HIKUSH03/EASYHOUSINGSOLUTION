@@ -102,7 +102,7 @@ namespace EHSWebAPI.Repositories.PropertiesRepository
             if (property != null)
             {
                 property.IsActive = false;
-                // Optionally log the reason somewhere
+                // Optionally log the reason somewhere  
             }
         }
 
