@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -28,6 +29,7 @@ namespace EHSWebAPI.Repositories.BuyersRepository
             _eHSDbContext.SaveChanges();
             return buyer;
         }
+
         public Property GetPropertyById(int id)
         {
             return _eHSDbContext.Properties.Find(id);
@@ -42,18 +44,28 @@ namespace EHSWebAPI.Repositories.BuyersRepository
             return _eHSDbContext.Properties.ToList().OrderBy(x => x.PriceRange);
         }
 
-        public IEnumerable<Cart> AddToCart(int buyerId, int propertyId)
+        // Add property to cart
+        public bool AddToCart(int buyerId, Property property)
         {
-            Cart cart = new Cart()
+            // check if buyer already has a cart
+            var cartExists = _eHSDbContext.Carts.Find(buyerId);
+
+            if (cartExists == null)
             {
-                BuyerId = buyerId,
-                PropertyId = propertyId,
-                Buyer = _eHSDbContext.Buyers.FirstOrDefault(b => b.BuyerId == buyerId),
-                Property = _eHSDbContext.Properties.FirstOrDefault(p => p.PropertyId == propertyId)
-            };
-            _eHSDbContext.Carts.Add(cart);
+                // buyer does not has a cart, create new and add in it
+                Cart cart = new Cart
+                {
+                    BuyerId = buyerId,
+                    Properties = new List<Property> { property }
+                };
+                _eHSDbContext.Carts.Add(cart);
+                _eHSDbContext.SaveChanges();
+                return true;
+            }
+            // buyer has a cart, add property to it
+            cartExists.Properties.Add(property);
             _eHSDbContext.SaveChanges();
-            return _eHSDbContext.Carts.ToList();
+            return true;
         }
 
         public bool RemoveFromCart(int? id)

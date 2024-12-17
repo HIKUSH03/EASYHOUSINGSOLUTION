@@ -4,12 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 
 namespace EHSWebAPI.Repositories.PropertiesRepository
 {
-    public class PropertyRepository:IPropertyRepository
+    public class PropertyRepository : IPropertyRepository
     {
         private readonly EHSDbContext _context;
 
@@ -22,87 +20,167 @@ namespace EHSWebAPI.Repositories.PropertiesRepository
 
         public IEnumerable<Property> GetAllProperties()
         {
-            return _context.Properties.Include(p => p.Seller).ToList();
+            try
+            {
+                return _context.Properties.Include(p => p.Seller).ToList();
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                throw new Exception("An error occurred while retrieving all properties.", ex);
+            }
         }
 
         public Property GetPropertyById(int propertyId)
         {
-            return _context.Properties.Include(p => p.Seller).FirstOrDefault(p => p.PropertyId == propertyId);
+            try
+            {
+                return _context.Properties.Include(p => p.Seller).FirstOrDefault(p => p.PropertyId == propertyId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while retrieving the property with ID {propertyId}.", ex);
+            }
         }
 
         public void AddProperty(Property property)
         {
-            _context.Properties.Add(property);
+            try
+            {
+                _context.Properties.Add(property);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while adding the property.", ex);
+            }
         }
 
         public void UpdateProperty(Property property)
         {
-            _context.Entry(property).State = EntityState.Modified;
+            try
+            {
+                _context.Entry(property).State = EntityState.Modified;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while updating the property with ID {property.PropertyId}.", ex);
+            }
         }
 
         // Specialized Query Operations
 
         public IEnumerable<Property> GetPropertiesByRegion(string region)
         {
-            return _context.Properties.Where(p => p.Address.Contains(region)).ToList();
+            try
+            {
+                return _context.Properties.Where(p => p.Address.Contains(region)).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while retrieving properties for region '{region}'.", ex);
+            }
         }
 
         public IEnumerable<Property> GetPropertiesByType(string propertyType)
         {
-            return _context.Properties.Where(p => p.PropertyType == propertyType).ToList();
+            try
+            {
+                return _context.Properties.Where(p => p.PropertyType == propertyType).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while retrieving properties of type '{propertyType}'.", ex);
+            }
         }
 
         public IEnumerable<Property> GetPropertiesBySeller(int sellerId)
         {
-            return _context.Properties.Where(p => p.SellerId == sellerId).ToList();
+            try
+            {
+                return _context.Properties.Where(p => p.SellerId == sellerId).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while retrieving properties for seller with ID {sellerId}.", ex);
+            }
         }
 
         public IEnumerable<Property> GetPropertiesByStatus(bool isActive)
         {
-            return _context.Properties.Where(p => p.IsActive == isActive).ToList();
+            try
+            {
+                return _context.Properties.Where(p => p.IsActive == isActive).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while retrieving properties with IsActive = {isActive}.", ex);
+            }
         }
 
         public IEnumerable<Property> SearchProperties(string region = null, string propertyType = null, decimal? price = null)
         {
-            var query = _context.Properties.AsQueryable();
-
-            if (!string.IsNullOrEmpty(region))
+            try
             {
-                query = query.Where(p => p.Address.Contains(region));
-            }
+                var query = _context.Properties.AsQueryable();
 
-            if (!string.IsNullOrEmpty(propertyType))
+                if (!string.IsNullOrEmpty(region))
+                {
+                    query = query.Where(p => p.Address.Contains(region));
+                }
+
+                if (!string.IsNullOrEmpty(propertyType))
+                {
+                    query = query.Where(p => p.PropertyType == propertyType);
+                }
+
+                if (price.HasValue)
+                {
+                    query = query.Where(p => p.PriceRange == price.Value);
+                }
+
+                return query.ToList();
+            }
+            catch (Exception ex)
             {
-                query = query.Where(p => p.PropertyType == propertyType);
+               
+                throw new Exception("An error occurred while searching for properties.", ex);
             }
-
-            if (price.HasValue)
-            {
-                query = query.Where(p => p.PriceRange == price.Value);
-            }
-
-            return query.ToList();
         }
-
 
         // Property Verification and Status Management
 
         public void VerifyProperty(int propertyId, bool isVerified)
         {
-            var property = _context.Properties.Find(propertyId);
-            if (property != null)
+            try
             {
-                property.IsActive = isVerified;
+                var property = _context.Properties.Find(propertyId);
+                if (property != null)
+                {
+                    property.IsActive = isVerified;
+                }
+            }
+            catch (Exception ex)
+            {
+               
+                throw new Exception($"An error occurred while verifying the property with ID {propertyId}.", ex);
             }
         }
 
         public void DeactivateProperty(int propertyId, string reason)
         {
-            var property = _context.Properties.Find(propertyId);
-            if (property != null)
+            try
             {
-                property.IsActive = false;
-                // Optionally log the reason somewhere
+                var property = _context.Properties.Find(propertyId);
+                if (property != null)
+                {
+                    property.IsActive = false;
+                    // Optionally log the reason somewhere
+                }
+            }
+            catch (Exception ex)
+            {
+                
+                throw new Exception($"An error occurred while deactivating the property with ID {propertyId}.", ex);
             }
         }
 
@@ -110,9 +188,15 @@ namespace EHSWebAPI.Repositories.PropertiesRepository
 
         public void Save()
         {
-            _context.SaveChanges();
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                // log.Error("Error saving changes", ex);
+                throw new Exception("An error occurred while saving changes to the database.", ex);
+            }
         }
-
-       
     }
 }

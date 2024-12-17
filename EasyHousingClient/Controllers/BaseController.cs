@@ -33,6 +33,12 @@ namespace EasyHousingClient.Controllers
             return await _httpClient.PostAsync(endpoint, content);
         }
 
+        [HttpGet]
+        public async Task<ActionResult> DefineUserType()
+        {
+            return View();
+        }
+
 
     }
 }

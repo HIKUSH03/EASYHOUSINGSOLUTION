@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace EHSDataAccessLayer.Entity
 {
@@ -11,14 +11,6 @@ namespace EHSDataAccessLayer.Entity
         [Required]
         public int BuyerId { get; set; }
 
-        [Required]
-        public int PropertyId { get; set; }
-
-        // Navigation Properties
-        [ForeignKey("BuyerId")]
-        public Buyer Buyer { get; set; }
-
-        [ForeignKey("PropertyId")]
-        public Property Property { get; set; }
+        public ICollection<Property> Properties { get; set; }
     }
 }

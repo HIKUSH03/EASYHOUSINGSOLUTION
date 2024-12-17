@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace EHSDataAccessLayer.Entity
@@ -8,6 +7,9 @@ namespace EHSDataAccessLayer.Entity
     {
         [Key]
         public int BuyerId { get; set; }
+        [Required]
+        [StringLength(30)]
+        public string UserName { get; set; }
 
         [Required]
         [StringLength(25)]
@@ -28,6 +30,6 @@ namespace EHSDataAccessLayer.Entity
         public string EmailId { get; set; }
 
         // Navigation Properties
-        public ICollection<Cart> Carts { get; set; }
+        public Cart Cart { get; set; }
     }
 }

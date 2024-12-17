@@ -61,7 +61,7 @@ namespace EHSWebAPI.Controllers
         }
 
         // PUT: api/sellers/{id}
-        [HttpPut]
+        [HttpPost]
         [Route("{id}")]
         public IHttpActionResult UpdateSeller(int id, [FromBody] Seller seller)
         {
@@ -92,38 +92,6 @@ namespace EHSWebAPI.Controllers
 
             return Ok();
         }
-
-        // POST: api/sellers/{sellerId}/properties
-        [HttpPost]
-        [Route("{sellerId}/properties")]
-        public IHttpActionResult AddProperty(int sellerId, [FromBody] Property property)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var createdProperty = _sellerRepository.AddPropertyToSeller(sellerId, property);
-            if (createdProperty == null)
-            {
-                return NotFound();
-            }
-
-            return Created(new Uri(Request.RequestUri + "/" + createdProperty.PropertyId), createdProperty);
-        }
-
-        // GET: api/sellers/{sellerId}/properties
-        [HttpGet]
-        [Route("{sellerId}/properties")]
-        public IHttpActionResult GetPropertiesBySeller(int sellerId)
-        {
-            var properties = _sellerRepository.GetPropertiesBySeller(sellerId);
-            if (properties == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(properties);
-        }
+       
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 using EHSDataAccessLayer.Entity;
 using EHSDataAccessLayer.Entity.Context;
@@ -57,14 +53,15 @@ namespace EHSWebAPI.Controllers
 
         // add property to cart
         [HttpPost]
-        [Route("addtocart/{buyerId}/{propertyId}")]
-        public IHttpActionResult AddToCart(int buyerId, int propertyId)
+        [Route("addtocart")]
+        public IHttpActionResult AddToCart(int buyerId, [FromBody] Property property)
         {
-
-            var result = _buyerRepository.AddToCart(buyerId, propertyId);
-            if (result == null)
-                return NotFound();
-            return Ok(result);
+            var result = _buyerRepository.AddToCart(buyerId, property);
+            if (result)
+            {
+                return Ok();
+            }
+            return NotFound();
         }
 
         // remove from cart
@@ -73,7 +70,7 @@ namespace EHSWebAPI.Controllers
         public IHttpActionResult RemoveFromCart(int id)
         {
             var success = _buyerRepository.RemoveFromCart(id);
-            if(success)
+            if (success)
             {
                 return Ok();
             }

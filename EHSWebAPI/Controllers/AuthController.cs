@@ -17,12 +17,25 @@ namespace EHSWebAPI.Controllers
 
         //Register user
         [HttpPost]
-        [Route("register")]
-        public IHttpActionResult Register([FromBody] RegisterDto registerDto)
+        [Route("registerBuyer")]
+        public IHttpActionResult RegisterBuyer([FromBody] RegisterBuyerDto registerBuyerDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            var result = _authService.Register(registerDto);
+            var result = _authService.Register(registerBuyerDto);
+            if (result == "User regsitered successfully")
+                return Ok(result);
+            return BadRequest(result);
+        }
+
+        //Register Seller
+        [HttpPost]
+        [Route("registerSeller")]
+        public IHttpActionResult RegisterSeller([FromBody] RegisterSellerDto registerSellerDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var result = _authService.Register(registerSellerDto);
             if (result == "User regsitered successfully")
                 return Ok(result);
             return BadRequest(result);
@@ -33,19 +46,19 @@ namespace EHSWebAPI.Controllers
         [Route("login")]
         public IHttpActionResult Login([FromBody] LoginDto loginDto)
         {
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var (result, userType, userName) = _authService.Authenticate(loginDto);
+            if (result == "Authentication successful")
             {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
-                var (result, userType) = _authService.Authenticate(loginDto);
-                if (result == "Authenticate successful")
-                {
-
-
-                    return Ok(new { Message = result, UserType = userType });
-                }
-                return BadRequest(result);
+                //Return both UserType And UserName in the response object
+                return Ok(new { Message = result, UserType = userType, UserName = userName });
             }
+            return BadRequest(result);
         }
+
 
 
     }

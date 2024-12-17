@@ -165,11 +165,15 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BuyerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SellerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +194,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\images\house.png" />
+    <Content Include="Content\images\seller1.png" />
     <Content Include="Content\images\image1.jpg" />
     <Content Include="Content\images\image2.jpg" />
     <Content Include="Content\images\image3.jpg" />
@@ -233,10 +238,24 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Admin\ViewPropertiesByRegion.cshtml" />
+    <Content Include="Views\Buyer\Index.cshtml" />
+    <Content Include="Views\Buyer\SortedByPrice.cshtml" />
+    <Content Include="Views\Buyer\SearchPropertyByRegion.cshtml" />
+    <Content Include="Views\Admin\ViewPropertiesByOwner.cshtml" />
+    <Content Include="Views\Buyer\ViewAllProperties.cshtml" />
+    <Content Include="Views\Buyer\Details.cshtml" />
+    <Content Include="Views\Buyer\SellerDetails.cshtml" />
+    <Content Include="Views\Auth\Login.cshtml" />
+    <Content Include="Views\Seller\Index.cshtml" />
+    <Content Include="Views\Seller\Details.cshtml" />
+    <Content Include="Views\Seller\Create.cshtml" />
+    <Content Include="Views\Seller\Edit.cshtml" />
+    <Content Include="Views\Seller\Delete.cshtml" />
+    <Content Include="Views\Home\BuyerIndex.cshtml" />
+    <Content Include="Views\Home\SellerIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

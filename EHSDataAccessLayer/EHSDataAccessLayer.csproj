@@ -68,12 +68,19 @@
     <Compile Include="Migrations\202412131856078_Initialv1.Designer.cs">
       <DependentUpon>202412131856078_Initialv1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202412161229534_v2.cs" />
+    <Compile Include="Migrations\202412161229534_v2.Designer.cs">
+      <DependentUpon>202412161229534_v2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202412131856078_Initialv1.resx">
       <DependentUpon>202412131856078_Initialv1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202412161229534_v2.resx">
+      <DependentUpon>202412161229534_v2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
