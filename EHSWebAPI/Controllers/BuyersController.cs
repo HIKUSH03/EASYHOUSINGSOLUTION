@@ -35,6 +35,17 @@ namespace EHSWebAPI.Controllers
             return _buyerRepository.GetAllBuyers();
         }
 
+        // get buyer by username
+        [HttpGet]
+        [Route("buyer/{username}")]
+        public IHttpActionResult GetBuyerByUsername(string username)
+        {
+            var result = _buyerRepository.GetBuyerByUsername(username);
+            if (result == -1)
+                return NotFound();
+            return Ok(result);
+        }
+
         // get property by Id
         [HttpGet]
         [Route("property/{id}")]

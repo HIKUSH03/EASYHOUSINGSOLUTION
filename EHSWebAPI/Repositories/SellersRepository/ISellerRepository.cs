@@ -8,6 +8,7 @@ namespace EHSWebAPI.Repositories.SellersRepository
         IEnumerable<Seller> GetAll();
 
         Seller GetSellerById(int id);
+        int GetSellerByUsername(string username);
         Seller CreateSeller(Seller seller);
         Seller UpdateSeller(int id, Seller seller);
         bool DeleteSeller(int id);

@@ -11,6 +11,7 @@ namespace EHSWebAPI.Repositories.BuyersRepository
     public interface IBuyerRepository
     {
         Buyer CreateBuyer(Buyer buyer);
+        int GetBuyerByUsername(string username);
         IList<Buyer> GetAllBuyers();
         //bool UpdateBuyer(Buyer buyer);
         Property GetPropertyById(int id);
