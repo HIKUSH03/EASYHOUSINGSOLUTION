@@ -186,6 +186,8 @@ namespace EHSWebAPI.Repositories.PropertiesRepository
 
         // Save Changes
 
+        
+
         public void Save()
         {
             try
@@ -196,6 +198,23 @@ namespace EHSWebAPI.Repositories.PropertiesRepository
             {
                 // log.Error("Error saving changes", ex);
                 throw new Exception("An error occurred while saving changes to the database.", ex);
+            }
+        }
+
+        public bool DeleteProperty(int propertyId)
+        {
+            try
+            {
+                var property = _context.Properties.SingleOrDefault(s => s.PropertyId == propertyId);
+                if (property == null) return false;
+
+                _context.Properties.Remove(property);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while deactivating the property with ID {propertyId}.", ex);
             }
         }
     }

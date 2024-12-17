@@ -215,5 +215,18 @@ namespace EHSWebAPI.Controllers
                 return InternalServerError(new Exception($"An error occurred while deactivating the property with ID {id}.", ex));
             }
         }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public IHttpActionResult DeleteSeller(int id)
+        {
+            var isDeleted = _repository.DeleteProperty(id);
+            if (!isDeleted)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
     }
 }
