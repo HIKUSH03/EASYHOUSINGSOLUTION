@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Home";
+    ViewBag.Title = "Seller Registration";
 }
 
 <style type="text/css">
@@ -7,13 +7,14 @@
         margin: 0;
         padding: 0;
         overflow: hidden;
+        font-family: 'Arial', sans-serif;
     }
 
     .slideshow-container {
-        position: fixed; /* Changed from relative to fixed */
+        position: fixed;
         top: 0;
         left: 0;
-        width: 100vw; /* Changed from 100% to 100vw */
+        width: 100vw;
         height: 100vh;
         overflow: hidden;
     }
@@ -32,7 +33,6 @@
         animation: zoomEffect 20s infinite;
     }
 
-        /* Rest of your existing CSS remains the same */
         .slide::before {
             content: '';
             position: absolute;
@@ -40,51 +40,15 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient( rgba(18, 18, 18, 0.3), rgba(18, 18, 18, 0.5) );
+            background: linear-gradient(rgba(18, 18, 18, 0.3), rgba(18, 18, 18, 0.5));
         }
 
         .slide.active {
             opacity: 1;
         }
 
-    /* Ensure buttons and dots stay on top */
-    .buttons-container {
-        position: fixed; /* Changed from absolute to fixed */
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 1000; /* Increased z-index */
-        text-align: center;
-    }
-
-    .btn {
-        background: transparent;
-        border: 1px solid #ffffff;
-        color: #ffffff;
-        padding: 12px 40px;
-        margin: 0 12px;
-        transition: all 0.3s ease;
-        font-size: 18px;
-        letter-spacing: 0.5px;
-        cursor: pointer;
-    }
-
-        .btn:hover {
-            background: #ffffff;
-            color: #121212;
-            transform: translateY(-2px);
-        }
-
-    .dots-container {
-        position: fixed; /* Changed from absolute to fixed */
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 1000; /* Increased z-index */
-    }
-
     .modal {
-        display: none;
+        display: flex;
         position: fixed;
         top: 0;
         left: 0;
@@ -92,20 +56,14 @@
         height: 100%;
         background-color: rgba(0, 0, 0, 0.7);
         z-index: 1000;
-        opacity: 0;
-        transition: opacity 0.3s ease-in-out;
+        opacity: 1;
     }
-
-        .modal.show {
-            display: flex;
-            opacity: 1;
-        }
 
     .modal-content {
         position: relative;
         background: rgba(255, 255, 255, 0.95);
         width: 90%;
-        max-width: 400px;
+        max-width: 500px;
         margin: auto;
         padding: 40px;
         border-radius: 8px;
@@ -115,7 +73,7 @@
         transition: all 0.3s ease-in-out;
     }
 
-    .modal.show .modal-content {
+    .modal-content {
         transform: scale(1);
         opacity: 1;
     }
@@ -143,7 +101,7 @@
         margin-bottom: 20px;
     }
 
-        .form-group input {
+        .form-group input, .form-group label, .form-group select {
             width: 100%;
             padding: 12px;
             border: 1px solid rgba(0, 0, 0, 0.1);
@@ -152,10 +110,16 @@
             transition: border-color 0.3s ease;
         }
 
-            .form-group input:focus {
+            .form-group input:focus, .form-group select:focus {
                 outline: none;
                 border-color: #333;
             }
+
+        .form-group label {
+            border: none;
+            padding: 0 0 5px 0;
+            color: #666;
+        }
 
     .submit-btn {
         width: 100%;
@@ -175,38 +139,20 @@
         }
 
     h2 {
-        margin: 0;
+        margin: 0 0 30px 0;
         color: #333;
         font-family: 'Prata', serif;
         text-align: center;
+        font-size: 28px;
     }
-    .user-type-selection {
+
+    .two-column {
         display: flex;
-        justify-content: center;
-        gap: 20px;
-        margin: 30px 0;
+        justify-content: space-between;
     }
 
-    .user-type-btn {
-        padding: 12px 30px;
-        background: #333;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        width: 120px;
-    }
-
-        .user-type-btn:hover {
-            background: #000;
-            transform: translateY(-2px);
-        }
-
-        .user-type-btn.selected {
-            background: #000;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        .two-column .form-group {
+            width: 48%;
         }
 </style>
 
@@ -215,57 +161,54 @@
     <div class="slide" style="background-image: url('@Url.Content("~/Content/images/image2.jpg")')"></div>
     <div class="slide" style="background-image: url('@Url.Content("~/Content/images/image3.jpg")')"></div>
     <div class="slide" style="background-image: url('@Url.Content("~/Content/images/image4.jpg")')"></div>
-
-    <div class="buttons-container">
-        <h1 style="color: white; margin-bottom: 40px; font-size:50px; font-family: 'Prata', serif;">Welcome</h1>
-        <button class="btn" onclick="openModal('loginModal')">Login</button>
-        <button class="btn" onclick="openModal('registerModal')">Register</button>
-    </div>
-
-    <div class="dots-container">
-        <span class="dot active" onclick="currentSlide(0)"></span>
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
-    </div>
 </div>
 
-<div id="loginModal" class="modal">
+<div class="modal show">
     <div class="modal-content">
-        <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
-        <h2>Login</h2>
+        <span class="close-btn" onclick="window.location.href='/Home/Index'">&times;</span>
+        <h2>Seller Registration</h2>
         <form class="modal-form">
-            <div class="form-group">
-                <input type="email" placeholder="Email" required>
+            <div class="two-column">
+                <div class="form-group">
+                    <input type="text" placeholder="First Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Last Name" required>
+                </div>
             </div>
             <div class="form-group">
-                <input type="password" placeholder="Password" required>
-            </div>
-            <button type="submit" class="submit-btn">Login</button>
-        </form>
-    </div>
-</div>
-
-<div id="registerModal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeModal('registerModal')">&times;</span>
-        <h2>Register</h2>
-        <div class="user-type-selection">
-            <button class="user-type-btn" onclick="selectUserType('buyer')">Buyer</button>
-            <button class="user-type-btn" onclick="selectUserType('seller')">Seller</button>
-        </div>
-        <form class="modal-form" style="display: none;">
-            <div class="form-group">
-                <input type="text" placeholder="Full Name" required>
-            </div>
-            <div class="form-group">
-                <input type="email" placeholder="Email" required>
+                <input type="text" placeholder="Username" required>
             </div>
             <div class="form-group">
                 <input type="password" placeholder="Password" required>
             </div>
             <div class="form-group">
                 <input type="password" placeholder="Confirm Password" required>
+            </div>
+            <div class="form-group">
+                <label>Date of Birth</label>
+                <input type="date" required>
+            </div>
+            <div class="form-group">
+                <input type="tel" placeholder="Phone Number" required>
+            </div>
+            <div class="form-group">
+                <input type="email" placeholder="Email Address" required>
+            </div>
+            <div class="two-column">
+                <div class="form-group">
+                    <select required>
+                        <option value="">Select State</option>
+                        <option>California</option>
+                        <option>New York</option>
+                        <option>Texas</option>
+                        <option>Florida</option>
+                        <!-- Add more states as needed -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="City" required>
+                </div>
             </div>
             <button type="submit" class="submit-btn">Register</button>
         </form>
@@ -276,23 +219,14 @@
     <script type="text/javascript">
         let currentSlideIndex = 0;
         const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.dot');
 
         function showSlide(index) {
             slides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-
             slides[index].classList.add('active');
-            dots[index].classList.add('active');
         }
 
         function nextSlide() {
             currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-            showSlide(currentSlideIndex);
-        }
-
-        function currentSlide(index) {
-            currentSlideIndex = index;
             showSlide(currentSlideIndex);
         }
 
@@ -301,53 +235,5 @@
 
         // Initialize first slide
         showSlide(currentSlideIndex);
-
-        function openModal(modalId) {
-            const modal = document.getElementById(modalId);
-            document.body.style.overflow = 'hidden';  // Prevent background scrolling
-            modal.classList.add('show');
-        }
-
-        function closeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            document.body.style.overflow = '';  // Restore scrolling
-            modal.classList.remove('show');
-        }
-
-        // Close modal when clicking outside
-        window.onclick = function (event) {
-            if (event.target.classList.contains('modal')) {
-                closeModal(event.target.id);
-            }
-        }
-
-        // Close modal on escape key
-        document.addEventListener('keydown', function (event) {
-            if (event.key === 'Escape') {
-                const modals = document.getElementsByClassName('modal');
-                for (let modal of modals) {
-                    if (modal.classList.contains('show')) {
-                        closeModal(modal.id);
-                    }
-                }
-            }
-        });
-
-        function selectUserType(type) {
-            // Remove selected class from all buttons
-            document.querySelectorAll('.user-type-btn').forEach(btn => {
-                btn.classList.remove('selected');
-            });
-
-            // Add selected class to clicked button
-            const clickedBtn = event.target;
-            clickedBtn.classList.add('selected');
-
-            // Show the registration form
-            document.querySelector('.modal-form').style.display = 'block';
-
-            // You can store the selected type for form submission
-            window.selectedUserType = type;
-        }
     </script>
 }
