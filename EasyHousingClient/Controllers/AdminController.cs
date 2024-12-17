@@ -13,7 +13,7 @@ namespace EasyHousingClient.Controllers
 {
     public class AdminController : BaseController
     {
-        private readonly string _adminApiUrl = "http://localhost:54057/";
+        //private readonly string _adminApiUrl = "http://localhost:54057/";
 
 
         [HttpGet]
@@ -35,8 +35,9 @@ namespace EasyHousingClient.Controllers
             try
             {
                 // Get properties from API
+                var query = $"api/property/\"region?region={region}";
 
-                var properties = await GetFromApi<List<Property>>($"region?region={HttpUtility.UrlEncode(region)}");
+                var properties = await GetFromApi<List<Property>>(query);
 
                 if (properties == null || properties.Count == 0)
                 {
@@ -73,7 +74,7 @@ namespace EasyHousingClient.Controllers
             try
             {
                 // Encode the sellerId as a string for URL encoding (though for integers it's often unnecessary)
-                var query = $"seller?sellerId={HttpUtility.UrlEncode(sellerId.ToString())}";
+                var query = $"api/property/seller/{sellerId}";
 
                 // Fetch properties from API
                 var properties = await GetFromApi<List<Property>>(query);
@@ -107,5 +108,37 @@ namespace EasyHousingClient.Controllers
             
         }
 
+        [HttpDelete]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var properties = await PostToApi<int>($"api/property/",id);
+            return RedirectToAction("Index");
+        }
+
+
+        [HttpPut]
+        public async Task<ActionResult> IsVerified(int id)
+        {
+            var query = $"api/property/{id}/verify";
+
+            var properties = await PostToApi<bool>(query, true);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Details(int id)
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync("http://localhost:54057/" + id);
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var property = JsonConvert.DeserializeObject<Property>(jsonString);
+                    return View(property);
+                }
+                return View();
+            }
+        }
     }
 }
