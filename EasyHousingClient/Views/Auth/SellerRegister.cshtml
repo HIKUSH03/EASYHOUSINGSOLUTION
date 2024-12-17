@@ -1,6 +1,11 @@
-﻿@{
-    ViewBag.Title = "Buyer Registration";
+﻿@model EHSWebAPI.DTOs.RegisterSellerDto
+
+@{
+    ViewBag.Title = "Seller Registration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<h2>Seller Registration</h2>
 
 <style type="text/css">
     body {
@@ -56,24 +61,16 @@
         height: 100%;
         background-color: rgba(0, 0, 0, 0.7);
         z-index: 1000;
-        opacity: 1;
     }
 
     .modal-content {
-        position: relative;
         background: rgba(255, 255, 255, 0.95);
         width: 90%;
-        max-width: 400px;
+        max-width: 500px;
         margin: auto;
         padding: 40px;
         border-radius: 8px;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        transform: scale(0.7);
-        opacity: 0;
-        transition: all 0.3s ease-in-out;
-    }
-
-    .modal-content {
         transform: scale(1);
         opacity: 1;
     }
@@ -86,39 +83,22 @@
         font-weight: bold;
         color: #333;
         cursor: pointer;
-        transition: color 0.3s ease;
     }
 
         .close-btn:hover {
             color: #000;
         }
 
-    .modal-form {
-        margin-top: 20px;
-    }
-
     .form-group {
         margin-bottom: 20px;
     }
 
-        .form-group input, .form-group label {
+        .form-group input, .form-group select {
             width: 100%;
             padding: 12px;
             border: 1px solid rgba(0, 0, 0, 0.1);
             border-radius: 4px;
             font-size: 16px;
-            transition: border-color 0.3s ease;
-        }
-
-            .form-group input:focus {
-                outline: none;
-                border-color: #333;
-            }
-
-        .form-group label {
-            border: none;
-            padding: 0 0 5px 0;
-            color: #666;
         }
 
     .submit-btn {
@@ -128,22 +108,17 @@
         color: white;
         border: none;
         border-radius: 4px;
-        font-size: 16px;
         cursor: pointer;
-        transition: all 0.3s ease;
     }
 
         .submit-btn:hover {
             background: #000;
-            transform: translateY(-2px);
         }
 
     h2 {
-        margin: 0 0 30px 0;
-        color: #333;
-        font-family: 'Prata', serif;
+        margin-bottom: 30px;
         text-align: center;
-        font-size: 28px;
+        color: #333;
     }
 </style>
 
@@ -154,43 +129,85 @@
     <div class="slide" style="background-image: url('@Url.Content("~/Content/images/image4.jpg")')"></div>
 </div>
 
-<div class="modal show">
+<div class="modal">
     <div class="modal-content">
         <span class="close-btn" onclick="window.location.href='/Home/Index'">&times;</span>
-        <h2>Buyer Registration</h2>
-        <form class="modal-form">
+        <h2>Seller Registration</h2>
+
+        @using (Html.BeginForm("SellerRegister", "Auth", FormMethod.Post, new { @class = "modal-form" }))
+        {
             <div class="form-group">
-                <input type="text" placeholder="First Name" required>
+                @Html.LabelFor(m => m.FirstName)
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "First Name" })
+                @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
             </div>
+
             <div class="form-group">
-                <input type="text" placeholder="Last Name" required>
+                @Html.LabelFor(m => m.LastName)
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Last Name" })
+                @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
             </div>
+
             <div class="form-group">
-                <input type="text" placeholder="Username" required>
+                @Html.LabelFor(m => m.UserName)
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Username" })
+                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
             </div>
+
             <div class="form-group">
-                <input type="password" placeholder="Password" required>
+                @Html.LabelFor(m => m.Password)
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
             </div>
+
             <div class="form-group">
-                <input type="password" placeholder="Confirm Password" required>
+                @Html.LabelFor(m => m.DateOfBirth)
+                @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "form-control", type = "date" })
+                @Html.ValidationMessageFor(m => m.DateOfBirth, "", new { @class = "text-danger" })
             </div>
+
             <div class="form-group">
-                <label>Date of Birth</label>
-                <input type="date" required>
+                @Html.LabelFor(m => m.PhoneNo)
+                @Html.TextBoxFor(m => m.PhoneNo, new { @class = "form-control", placeholder = "Phone Number" })
+                @Html.ValidationMessageFor(m => m.PhoneNo, "", new { @class = "text-danger" })
             </div>
+
             <div class="form-group">
-                <input type="tel" placeholder="Phone Number" required>
+                @Html.LabelFor(m => m.EmailId)
+                @Html.TextBoxFor(m => m.EmailId, new { @class = "form-control", placeholder = "Email Address" })
+                @Html.ValidationMessageFor(m => m.EmailId, "", new { @class = "text-danger" })
             </div>
+
             <div class="form-group">
-                <input type="email" placeholder="Email Address" required>
+                @Html.Label("State")
+                @Html.DropDownListFor(m => m.StateId, new SelectList(new[]
+                {
+                    new { Value = 1, Text = "California" },
+                    new { Value = 2, Text = "New York" },
+                    new { Value = 3, Text = "Texas" },
+                    new { Value = 4, Text = "Florida" }
+                }, "Value", "Text"), "Select State", new { @class = "form-control" })
             </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.CityId)
+                @Html.TextBoxFor(m => m.CityId, new { @class = "form-control", placeholder = "City" })
+                @Html.ValidationMessageFor(m => m.CityId, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Address)
+                @Html.TextBoxFor(m => m.Address, new { @class = "form-control", placeholder = "Address" })
+                @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+            </div>
+
             <button type="submit" class="submit-btn">Register</button>
-        </form>
+        }
     </div>
 </div>
 
 @section Scripts {
-    <script type="text/javascript">
+    <script>
         let currentSlideIndex = 0;
         const slides = document.querySelectorAll('.slide');
 
@@ -204,10 +221,7 @@
             showSlide(currentSlideIndex);
         }
 
-        // Auto advance slides
         setInterval(nextSlide, 5000);
-
-        // Initialize first slide
         showSlide(currentSlideIndex);
     </script>
 }

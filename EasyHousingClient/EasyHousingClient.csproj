@@ -251,8 +251,8 @@
     <Content Include="Views\Seller\Create.cshtml" />
     <Content Include="Views\Seller\Edit.cshtml" />
     <Content Include="Views\Seller\Delete.cshtml" />
-    <Content Include="Views\Home\BuyerIndex.cshtml" />
-    <Content Include="Views\Home\SellerIndex.cshtml" />
+    <Content Include="Views\Auth\SellerRegister.cshtml" />
+    <Content Include="Views\Auth\BuyerRegister.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

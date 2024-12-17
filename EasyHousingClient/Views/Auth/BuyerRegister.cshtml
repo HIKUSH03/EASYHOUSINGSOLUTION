@@ -1,6 +1,11 @@
-﻿@{
-    ViewBag.Title = "Seller Registration";
+﻿@model EHSWebAPI.DTOs.RegisterBuyerDto
+
+@{
+    ViewBag.Title = "Buyer Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<h2>Buyer Register</h2>
 
 <style type="text/css">
     body {
@@ -63,7 +68,7 @@
         position: relative;
         background: rgba(255, 255, 255, 0.95);
         width: 90%;
-        max-width: 500px;
+        max-width: 400px;
         margin: auto;
         padding: 40px;
         border-radius: 8px;
@@ -101,7 +106,7 @@
         margin-bottom: 20px;
     }
 
-        .form-group input, .form-group label, .form-group select {
+        .form-group input, .form-group label {
             width: 100%;
             padding: 12px;
             border: 1px solid rgba(0, 0, 0, 0.1);
@@ -110,7 +115,7 @@
             transition: border-color 0.3s ease;
         }
 
-            .form-group input:focus, .form-group select:focus {
+            .form-group input:focus {
                 outline: none;
                 border-color: #333;
             }
@@ -145,15 +150,6 @@
         text-align: center;
         font-size: 28px;
     }
-
-    .two-column {
-        display: flex;
-        justify-content: space-between;
-    }
-
-        .two-column .form-group {
-            width: 48%;
-        }
 </style>
 
 <div class="slideshow-container">
@@ -166,52 +162,56 @@
 <div class="modal show">
     <div class="modal-content">
         <span class="close-btn" onclick="window.location.href='/Home/Index'">&times;</span>
-        <h2>Seller Registration</h2>
-        <form class="modal-form">
-            <div class="two-column">
-                <div class="form-group">
-                    <input type="text" placeholder="First Name" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" placeholder="Last Name" required>
-                </div>
-            </div>
+        <h2>Buyer Registration</h2>
+
+        @using (Html.BeginForm("BuyerRegister", "Auth", FormMethod.Post, new { @class = "modal-form" }))
+        {
+           
+
             <div class="form-group">
-                <input type="text" placeholder="Username" required>
+                @Html.LabelFor(m => m.FirstName, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "First Name" })
+                @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
             </div>
+
             <div class="form-group">
-                <input type="password" placeholder="Password" required>
+                @Html.LabelFor(m => m.LastName, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Last Name" })
+                @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
             </div>
+
             <div class="form-group">
-                <input type="password" placeholder="Confirm Password" required>
+                @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Username" })
+                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
             </div>
+
             <div class="form-group">
-                <label>Date of Birth</label>
-                <input type="date" required>
+                @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
             </div>
+
             <div class="form-group">
-                <input type="tel" placeholder="Phone Number" required>
+                @Html.LabelFor(m => m.DateOfBirth, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "form-control", type = "date" })
+                @Html.ValidationMessageFor(m => m.DateOfBirth, "", new { @class = "text-danger" })
             </div>
+
             <div class="form-group">
-                <input type="email" placeholder="Email Address" required>
+                @Html.LabelFor(m => m.PhoneNo, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.PhoneNo, new { @class = "form-control", placeholder = "Phone Number" })
+                @Html.ValidationMessageFor(m => m.PhoneNo, "", new { @class = "text-danger" })
             </div>
-            <div class="two-column">
-                <div class="form-group">
-                    <select required>
-                        <option value="">Select State</option>
-                        <option>California</option>
-                        <option>New York</option>
-                        <option>Texas</option>
-                        <option>Florida</option>
-                        <!-- Add more states as needed -->
-                    </select>
-                </div>
-                <div class="form-group">
-                    <input type="text" placeholder="City" required>
-                </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.EmailId, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.EmailId, new { @class = "form-control", placeholder = "Email Address" })
+                @Html.ValidationMessageFor(m => m.EmailId, "", new { @class = "text-danger" })
             </div>
+
             <button type="submit" class="submit-btn">Register</button>
-        </form>
+        }
     </div>
 </div>
 
@@ -237,3 +237,5 @@
         showSlide(currentSlideIndex);
     </script>
 }
+
+

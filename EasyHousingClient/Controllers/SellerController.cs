@@ -1,32 +1,60 @@
-﻿using EHSDataAccessLayer.Entity;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
+using EHSDataAccessLayer.Entity;
 
 namespace EasyHousingClient.Controllers
 {
     public class SellerController : BaseController
     {
+
+        // GET: Seller
+        private readonly HttpClient _httpClient = new HttpClient(); // HttpClient instance for API calls
+
         // GET: Seller
         public async Task<ActionResult> Index()
         {
             try
             {
-                // Call API to get all sellers
+                // Validate that UserName exists in session
+                if (Session["UserName"] == null)
+                {
+                    TempData["ErrorMessage"] = "User not logged in.";
+                    return RedirectToAction("Login", "Auth");
+                }
+
+                // Step 1: Call API to fetch SellerId
+                string apiUrl = $"http://localhost:54057/api/Seller/seller/{Session["UserName"]}";
+                var response = await _httpClient.GetAsync(apiUrl);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    // Parse the response content as an integer
+                    var sellerIdString = await response.Content.ReadAsStringAsync();
+                    int sellerId = Convert.ToInt32(sellerIdString);
+
+                    // Store SellerId in Session
+                    Session["SellerId"] = sellerId;
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "Failed to retrieve Seller ID.";
+                }
+
+                // Step 2: Call API to fetch list of sellers
                 var sellers = await GetFromApi<List<Seller>>("api/Seller");
                 return View(sellers);
             }
             catch (Exception ex)
             {
-                // Handle error (display a message, log the error, etc.)
-                ViewBag.ErrorMessage = "An error occurred while retrieving sellers: " + ex.Message;
+                // Handle errors gracefully
+                ViewBag.ErrorMessage = "An error occurred: " + ex.Message;
                 return View(new List<Seller>());
             }
         }
+
 
         // GET: Seller/Details/5
         public async Task<ActionResult> Details(int id)

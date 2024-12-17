@@ -32,7 +32,6 @@
         animation: zoomEffect 20s infinite;
     }
 
-        /* Rest of your existing CSS remains the same */
         .slide::before {
             content: '';
             position: absolute;
@@ -47,13 +46,12 @@
             opacity: 1;
         }
 
-    /* Ensure buttons and dots stay on top */
     .buttons-container {
-        position: fixed; /* Changed from absolute to fixed */
+        position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        z-index: 1000; /* Increased z-index */
+        z-index: 1000;
         text-align: center;
     }
 
@@ -76,11 +74,11 @@
         }
 
     .dots-container {
-        position: fixed; /* Changed from absolute to fixed */
+        position: fixed;
         bottom: 20px;
         left: 50%;
         transform: translateX(-50%);
-        z-index: 1000; /* Increased z-index */
+        z-index: 1000;
     }
 
     .modal {
@@ -180,6 +178,7 @@
         font-family: 'Prata', serif;
         text-align: center;
     }
+
     .user-type-selection {
         display: flex;
         justify-content: center;
@@ -218,7 +217,7 @@
 
     <div class="buttons-container">
         <h1 style="color: white; margin-bottom: 40px; font-size:50px; font-family: 'Prata', serif;">Welcome</h1>
-        <button class="btn" onclick="openModal('loginModal')">Login</button>
+        <button class="btn" onclick="handleLoginRedirect()">Login</button>
         <button class="btn" onclick="openModal('registerModal')">Register</button>
     </div>
 
@@ -234,12 +233,12 @@
     <div class="modal-content">
         <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
         <h2>Login</h2>
-        <form class="modal-form">
+        <form class="modal-form" action="@Url.Action("Login", "Auth")" method="post">
             <div class="form-group">
-                <input type="email" placeholder="Email" required>
+                <input type="email" name="UserName" placeholder="Email" required>
             </div>
             <div class="form-group">
-                <input type="password" placeholder="Password" required>
+                <input type="password" name="Password" placeholder="Password" required>
             </div>
             <button type="submit" class="submit-btn">Login</button>
         </form>
@@ -253,6 +252,8 @@
         <div class="user-type-selection">
             <button class="user-type-btn" onclick="selectUserType('buyer')">Buyer</button>
             <button class="user-type-btn" onclick="selectUserType('seller')">Seller</button>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
@@ -279,32 +280,27 @@
             showSlide(currentSlideIndex);
         }
 
-        // Auto advance slides
         setInterval(nextSlide, 5000);
-
-        // Initialize first slide
         showSlide(currentSlideIndex);
 
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
-            document.body.style.overflow = 'hidden';  // Prevent background scrolling
+            document.body.style.overflow = 'hidden';
             modal.classList.add('show');
         }
 
         function closeModal(modalId) {
             const modal = document.getElementById(modalId);
-            document.body.style.overflow = '';  // Restore scrolling
+            document.body.style.overflow = '';
             modal.classList.remove('show');
         }
 
-        // Close modal when clicking outside
         window.onclick = function (event) {
             if (event.target.classList.contains('modal')) {
                 closeModal(event.target.id);
             }
         }
 
-        // Close modal on escape key
         document.addEventListener('keydown', function (event) {
             if (event.key === 'Escape') {
                 const modals = document.getElementsByClassName('modal');
@@ -317,20 +313,22 @@
         });
 
         function selectUserType(type) {
-            // Remove selected class from all buttons
             document.querySelectorAll('.user-type-btn').forEach(btn => {
                 btn.classList.remove('selected');
             });
 
-            // Add selected class to clicked button
             const clickedBtn = event.target;
             clickedBtn.classList.add('selected');
 
-            // Show the registration form
-            document.querySelector('.modal-form').style.display = 'block';
+            if (type === 'buyer') {
+                window.location.href = '@Url.Action("BuyerRegister", "Auth")';
+            } else if (type === 'seller') {
+                window.location.href = '@Url.Action("SellerRegister", "Auth")';
+            }
+        }
 
-            // You can store the selected type for form submission
-            window.selectedUserType = type;
+        function handleLoginRedirect() {
+            window.location.href = '@Url.Action("Login", "Auth")';
         }
     </script>
 }
