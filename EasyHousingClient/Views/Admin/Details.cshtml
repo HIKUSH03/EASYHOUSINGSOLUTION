@@ -121,7 +121,15 @@
     <!-- Delete Button -->
     @Html.ActionLink("Delete", "Delete", new { id = Model.PropertyId }, new { @class = "btn btn-delete" })
     <!-- Verify Button -->
+    @if (!Model.IsActive)
+    {
     @Html.ActionLink("Verify", "IsVerified", new { id = Model.PropertyId }, new { @class = "btn btn-verify" })
+
+    }
+    else{
+    @Html.ActionLink("UnVerify", "UnVerified", new { id = Model.PropertyId }, new { @class = "btn btn-delete" })
+    }
+
     <!-- Back Button -->
     @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-back" })
 </div>

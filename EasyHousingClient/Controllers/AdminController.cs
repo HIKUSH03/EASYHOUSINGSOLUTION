@@ -154,14 +154,44 @@ namespace EasyHousingClient.Controllers
             return View();
         }
 
+        //[HttpGet]
+
+        //public async Task<ActionResult> IsVerified(int id)
+        //{
+        //    return View(id);
+        //}
+
+
+        //[HttpPost, ActionName("IsVerified")]
+        //[ValidateAntiForgeryToken]
 
         [HttpPost]
         public async Task<ActionResult> IsVerified(int id)
         {
-            var query = $"api/property/{id}/verify";
+            var query = $"api/property/verify/{id}";
 
             var properties = await PostToApi<bool>(query, true);
-            return RedirectToAction("Index");
+            return RedirectToAction("Details");
+        }
+
+        //[HttpGet]
+
+        //public async Task<ActionResult> UnVerified(int id)
+        //{
+        //    return View(id);
+        //}
+
+
+        //[HttpPost, ActionName("UnVerified")]
+        //[ValidateAntiForgeryToken]
+
+        [HttpPost]
+        public async Task<ActionResult> UnVerified(int id)
+        {
+            var query = $"api/property/{id}/verify";
+
+            var properties = await PostToApi<bool>(query, false);
+            return RedirectToAction("Details");
         }
 
         [HttpGet]
