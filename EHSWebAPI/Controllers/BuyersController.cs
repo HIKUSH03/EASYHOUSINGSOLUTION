@@ -75,6 +75,19 @@ namespace EHSWebAPI.Controllers
             return NotFound();
         }
 
+        // get cart by BuyerId
+        [HttpGet]
+        [Route("{id}/cart")]
+        public IHttpActionResult GetCartByBuyerId(int id)
+        {
+            var result = _buyerRepository.GetCartByBuyerId(id);
+            if (result == null)
+                return BadRequest("Cart is null for the buyer");
+            return Ok(result);
+        }
+
+
+
         // remove from cart
         [HttpDelete]
         [Route("removefromcart/{id}")]

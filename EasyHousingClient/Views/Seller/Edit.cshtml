@@ -1,125 +1,143 @@
-﻿@model EHSDataAccessLayer.Entity.Seller
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Property</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles */
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-@{
-    ViewBag.Title = "Edit Seller";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+        h1 {
+            text-align: center;
+        }
 
-<!-- Page Title and Subtitle -->
-<h2 class="text-center my-4 text-primary">@ViewBag.Title</h2>
+        form {
+            display: flex;
+            flex-direction: column;
+        }
 
-<!-- Optional SVG Image -->
-<div class="text-center mb-4">
-    <img src="~/Content/images/seller1.png" alt="Edit Icon" width="80" height="80" />
-</div>
+        label {
+            margin-bottom: 5px;
+        }
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+        input[type=text],
+        input[type=number],
+        textarea,
+        select {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 4px;
+        }
 
-    <div class="container">
-        <div class="form-horizontal">
-            <h4>Seller</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.SellerId)
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
-            <!-- Username Field -->
-            <div class="form-group row">
-                @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-                </div>
-            </div>
+            button:hover {
+                background-color: #0056b3;
+            }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Edit Property</h1>
+        <form id="propertyForm">
+            <label for="propertyName">Property Name:</label>
+            <input type="text" id="propertyName" name="propertyName" required>
 
-            <!-- First Name Field -->
-            <div class="form-group row">
-                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-                </div>
-            </div>
+            <label for="propertyType">Property Type:</label>
+            <input type="text" id="propertyType" name="propertyType" required>
 
-            <!-- Last Name Field -->
-            <div class="form-group row">
-                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-                </div>
-            </div>
+            <label for="propertyOption">Property Option:</label>
+            <input type="text" id="propertyOption" name="propertyOption" required>
 
-            <!-- Date of Birth Field -->
-            <div class="form-group row">
-                @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
-                </div>
-            </div>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required></textarea>
 
-            <!-- Phone Number Field -->
-            <div class="form-group row">
-                @Html.LabelFor(model => model.PhoneNo, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.PhoneNo, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.PhoneNo, "", new { @class = "text-danger" })
-                </div>
-            </div>
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" required></textarea>
 
-            <!-- Address Field -->
-            <div class="form-group row">
-                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-                </div>
-            </div>
+            <label for="priceRange">Price Range:</label>
+            <input type="number" id="priceRange" name="priceRange" required>
 
-            <!-- State Field -->
-            <div class="form-group row">
-                @Html.LabelFor(model => model.StateId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.StateId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.StateId, "", new { @class = "text-danger" })
-                </div>
-            </div>
+            <label for="initialDeposit">Initial Deposit:</label>
+            <input type="number" id="initialDeposit" name="initialDeposit" required>
 
-            <!-- City Field -->
-            <div class="form-group row">
-                @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.CityId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
-                </div>
-            </div>
+            <label for="landmark">Landmark:</label>
+            <input type="text" id="landmark" name="landmark">
 
-            <!-- Email Field -->
-            <div class="form-group row">
-                @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
-                </div>
-            </div>
+            <label for="isActive">Is Active:</label>
+            <select id="isActive" name="isActive">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
 
-            <!-- Save Button -->
-            <div class="form-group row">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-primary" />
-                </div>
-            </div>
-        </div>
+            <label for="sellerId">Seller ID:</label>
+            <input type="number" id="sellerId" name="sellerId" required>
+
+            <button type="submit">Update</button>
+        </form>
     </div>
-}
 
-<!-- Back to List -->
-<div class="text-center">
-    @Html.ActionLink("Back to List", "Index", new { @class = "btn btn-secondary" })
-</div>
+    <script>
+        // Mock existing property data
+        const existingPropertyData = {
+            propertyName: "Luxury Villa",
+            propertyType: "Residential",
+            propertyOption: "For Sale",
+            description: "A beautiful luxury villa with a pool.",
+            address: "123 Luxury St, Beverly Hills, CA",
+            priceRange: 1500000,
+            initialDeposit: 300000,
+            landmark: "Near Central Park",
+            isActive: true,
+            sellerId: 42
+        };
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+        // Populate the form with existing data
+        document.getElementById('propertyName').value = existingPropertyData.propertyName;
+        document.getElementById('propertyType').value = existingPropertyData.propertyType;
+        document.getElementById('propertyOption').value = existingPropertyData.propertyOption;
+        document.getElementById('description').value = existingPropertyData.description;
+        document.getElementById('address').value = existingPropertyData.address;
+        document.getElementById('priceRange').value = existingPropertyData.priceRange;
+        document.getElementById('initialDeposit').value = existingPropertyData.initialDeposit;
+        document.getElementById('landmark').value = existingPropertyData.landmark;
+        document.getElementById('isActive').value = existingPropertyData.isActive.toString();
+        document.getElementById('sellerId').value = existingPropertyData.sellerId;
+
+        document.getElementById('propertyForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const updatedPropertyData = {
+                propertyName: document.getElementById('propertyName').value,
+                propertyType: document.getElementById('propertyType').value,
+                propertyOption: document.getElementById('propertyOption').value,
+                description: document.getElementById('description').value,
+                address: document.getElementById('address').value,
+                priceRange: parseFloat(document.getElementById('priceRange').value),
+                initialDeposit: parseFloat(document.getElementById('initialDeposit').value),
+                landmark: document.getElementById('landmark').value,
+                isActive: document.getElementById('isActive').value === 'true',
+                sellerId: parseInt(document.getElementById('sellerId').value),
+            };
+
+            console.log(updatedPropertyData); // You can replace this with an API call or further processing
+        });
+    </script>
+</body>
+</html>

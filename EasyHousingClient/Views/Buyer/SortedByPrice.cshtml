@@ -1,57 +1,151 @@
 ﻿@model List<EHSDataAccessLayer.Entity.Property>
 @{
-    ViewBag.Title = "SortedByPrice";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Search</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-<div class="d-flex justify-content-between align-items-center">
-    <h2>Sorted by Price</h2>
-    <div>
-        @Html.ActionLink("By Relevance", "Index", "Buyer", new { @class = "btn btn-outline-primary" })
-        @Html.ActionLink("Search By Region", "SearchPropertyByRegion", "Buyer", new { @class = "btn btn-outline-primary" })
-    </div>
-</div>
+        .search-container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+        }
 
-@if (Model != null && Model.Any())
-{
-    <table class="table table-striped table-bordered mt-3">
-        <thead class="thead-dark">
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Option</th>
-                <th>Description</th>
-                <th>Price Range</th>
-                <th>Initial Deposit</th>
-                <th>Landmark</th>
-                <th>Address</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var property in Model)
-            {
-                <tr class="@(property.IsActive ? "" : "d-none")">
-                    <td>@property.PropertyId</td>
-                    <td>@property.PropertyName</td>
-                    <td>@property.PropertyType</td>
-                    <td>@property.PropertyOption</td>
-                    <td>@property.Description</td>
-                    <td>@property.PriceRange</td>
-                    <td>@property.InitialDeposit</td>
-                    <td>@property.Landmark</td>
-                    <td>@property.Address</td>
-                    <td>
-                        @Html.ActionLink("Details", "Details", new { id = property.PropertyId }) |
-                        @Html.ActionLink("🛒", "AddToCart", new { id = property.PropertyId })           
-                    </td>
-                </tr>
+        .search-form {
+            background-color: #1e1e1e;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .property-card {
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+            .property-card:hover {
+                transform: translateY(-5px);
             }
-        </tbody>
-    </table>
-}
-else
-{
-    <h1>No properties found!</h1>
-}
+
+        .property-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .property-info {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .property-price {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #4CAF50;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: auto;
+        }
+
+        .details-button, .cart-button {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .details-button {
+            background-color: #007bff;
+            color: white;
+        }
+
+            .details-button:hover {
+                background-color: #0056b3;
+            }
+
+        .cart-button {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+            .cart-button:hover {
+                background-color: #45a049;
+            }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <div class="search-form">
+            <h2>Sorted By Price</h2>
+            <div class="filters">
+                <div>
+                    @Html.ActionLink("Sort By Relevance", "Index", "Buyer", new { @class = "btn btn-outline-primary" })
+                </div>
+            </div>
+        </div>
+        @if (Model != null && Model.Any())
+        {
+            <div class="property-grid">
+                @foreach (var property in Model)
+                {
+                    <div class="property-card">
+                        <img src="https://placehold.co/300x200" alt="@property.PropertyName" class="property-image" />
+                        <div class="property-info">
+                            <div class="property-price">@property.PriceRange</div>
+                            <h3>@property.PropertyName</h3>
+                            <div>@property.Description</div>
+                            <div class="button-group">
+                                @Html.ActionLink("Details", "Details", new { id = property.PropertyId }, new { @class = "details-button" })
+                                <form method="post" asp-action="AddToCart">
+                                    <input type="hidden" name="propertyId" value="@property.PropertyId" />
+                                    <button type="submit" class="cart-button">
+                                        Add 🛒
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <h3>No properties found!</h3>
+        }
+    </div>
+</body>
+</html>

@@ -1,9 +1,9 @@
-﻿using EHSDataAccessLayer.Entity;
-using EHSDataAccessLayer.Entity.Context;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using EHSDataAccessLayer.Entity;
+using EHSDataAccessLayer.Entity.Context;
 
 namespace EHSWebAPI.Repositories.PropertiesRepository
 {
@@ -142,7 +142,7 @@ namespace EHSWebAPI.Repositories.PropertiesRepository
             }
             catch (Exception ex)
             {
-               
+
                 throw new Exception("An error occurred while searching for properties.", ex);
             }
         }
@@ -161,7 +161,7 @@ namespace EHSWebAPI.Repositories.PropertiesRepository
             }
             catch (Exception ex)
             {
-               
+
                 throw new Exception($"An error occurred while verifying the property with ID {propertyId}.", ex);
             }
         }
@@ -174,12 +174,12 @@ namespace EHSWebAPI.Repositories.PropertiesRepository
                 if (property != null)
                 {
                     property.IsActive = false;
-                    // Optionally log the reason somewhere
+                    // Reason Can be Logged If Required
                 }
             }
             catch (Exception ex)
             {
-                
+
                 throw new Exception($"An error occurred while deactivating the property with ID {propertyId}.", ex);
             }
         }

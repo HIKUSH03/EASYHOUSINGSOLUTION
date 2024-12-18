@@ -2,8 +2,9 @@
 
 namespace EasyHousingClient.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : SecurityController
     {
+
         public ActionResult Index()
         {
             return View();

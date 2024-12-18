@@ -1,13 +1,9 @@
-﻿using EHSDataAccessLayer.Entity;
-using EHSDataAccessLayer.Entity.Context;
-using EHSWebAPI.Repositories.CitiesRepository;
-using EHSWebAPI.Repositories.PropertiesRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using EHSDataAccessLayer.Entity;
+using EHSDataAccessLayer.Entity.Context;
+using EHSWebAPI.Repositories.PropertiesRepository;
 
 namespace EHSWebAPI.Controllers
 {

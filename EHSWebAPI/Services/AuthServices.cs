@@ -76,16 +76,24 @@ namespace EHSWebAPI.Services
                 CityId = registerSellerDto.CityId,
                 EmailId = registerSellerDto.EmailId
             };
+            try
+            {
 
-            _context.Users.Add(user);
-            _context.Sellers.Add(seller);
-            _context.SaveChanges();
+                _context.Users.Add(user);
+                _context.Sellers.Add(seller);
+                _context.SaveChanges();
 
-            return "User registered successfully";
+                return "User registered successfully";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
 
 
         //Authenticate user
+        //login
         public (string, string, string) Authenticate(LoginDto loginDto)
         {
             var user = _context.Users.FirstOrDefault(u => u.UserName == loginDto.UserName);
