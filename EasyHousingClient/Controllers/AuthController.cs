@@ -51,7 +51,7 @@ namespace EasyHousingClient.Controllers
 
                         if (apiResult.UserType == "Admin")
                         {
-                            return RedirectToAction("Login", "Auth");
+                            return RedirectToAction("Index", "Admin");
                         }
 
                         else if (apiResult.UserType == "Seller")
