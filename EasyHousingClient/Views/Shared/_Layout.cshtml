@@ -69,22 +69,23 @@
         </div>
         <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
             <ul class="navbar-nav">
-                <!-- Right side of the navbar -->
-                @*@if (Session["user"] != null)
-                {*@
+                @if (Session["UserName"] != null) { 
+                    <li class="nav-item">
+                        <text>Welcome, @Session["UserName"]</text>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("#", "#")">My Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("#", "#")">Log Out</a>
+                        <a class="nav-link" href="@Url.Action("Logout", "Home")">Log Out</a>
                     </li>
-                @*}
+                }
                 else
                 {
                     <li class="nav-item">
                         @Html.ActionLink("Login", "Login", "Account", new { area = "" }, new { @class = "nav-link" })
                     </li>
-                }*@
+                }
             </ul>
         </div>
     </nav>
