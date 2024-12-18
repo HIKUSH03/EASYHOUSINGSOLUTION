@@ -261,17 +261,25 @@
     <Content Include="Views\Buyer\Details.cshtml" />
     <Content Include="Views\Buyer\SellerDetails.cshtml" />
     <Content Include="Views\Auth\Login.cshtml" />
-    <Content Include="Views\Seller\Index.cshtml" />
     <Content Include="Views\Seller\Details.cshtml" />
     <Content Include="Views\Seller\Create.cshtml" />
     <Content Include="Views\Seller\Edit.cshtml" />
-    <Content Include="Views\Seller\Delete.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\Delete.cshtml" />
-    <Content Include="Views\Auth\BuyerRegister.cshtml" />
-    <Content Include="Views\Auth\SellerRegister.cshtml" />
-    <Content Include="Views\Admin\Details.cshtml" />
-    <Content Include="Views\Buyer\BuyerProfile.cshtml" />
+
+   <Content Include="Views\Seller\Edit.cshtml" />
+<Content Include="Views\Admin\Index.cshtml" />
+<Content Include="Views\Admin\Delete.cshtml" />
+<Content Include="Views\Seller\Index.cshtml" />
+<Content Include="Views\Seller\AddProperty.cshtml" />
+<Content Include="Views\Seller\ViewVerifiedProperties.cshtml" />
+<Content Include="Views\Seller\UnViewVerifiedProperties.cshtml" />
+<Content Include="Views\Seller\PropertyDetails.cshtml" />
+<Content Include="Views\Seller\EditProperty.cshtml" />
+<Content Include="Views\Seller\Delete.cshtml" />
+<Content Include="Views\Auth\BuyerRegister.cshtml" />
+<Content Include="Views\Auth\SellerRegister.cshtml" />
+<Content Include="Views\Admin\Details.cshtml" />
+<Content Include="Views\Buyer\BuyerProfile.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
