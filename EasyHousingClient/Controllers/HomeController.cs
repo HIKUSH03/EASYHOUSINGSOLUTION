@@ -23,6 +23,12 @@ namespace EasyHousingClient.Controllers
 
             return View();
         }
-        //check
+
+        // destroy session to logout
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("Login", "Auth");
+        }
     }
 }

@@ -87,6 +87,7 @@
             font-family: 'Poppins', sans-serif;
             font-size: 1rem;
             transition: background-color 0.3s;
+            text-decoration: none;
         }
 
             .region-search-btn:hover {
@@ -185,6 +186,17 @@
             padding-top: 1rem;
         }
 
+        .property-type {
+            display: inline-block;
+            background-color: #2d2d2d;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.875rem;
+            color: #ccc;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
         .details-button, .cart-button {
             flex: 1;
             padding: 0.75rem 1rem;
@@ -251,6 +263,7 @@
                             <div class="property-price">$@property.PriceRange.ToString("N0")</div>
                             <h3 class="property-name">@property.PropertyName</h3>
                             <div class="property-location">📍 @property.Address</div>
+                            <div class="property-type">@property.PropertyType</div>
                             <div class="button-group">
                                 <a href="@Url.Action("Details", "Buyer", new { id = property.PropertyId })" class="details-button">
                                     <i class="fas fa-info-circle"></i> Details
