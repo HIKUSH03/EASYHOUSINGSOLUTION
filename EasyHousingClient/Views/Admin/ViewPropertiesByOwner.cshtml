@@ -93,6 +93,7 @@
     }
 </div>-->
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
 <style>
     /* Base styles */
@@ -147,11 +148,11 @@
         padding: 0;
     }
 
-    .search-container {
+/*    .search-container {
         max-width: 1200px;
         margin: 3rem auto;
         padding: 0 1rem;
-    }
+    }*/
 
     /* Search form styles */
     .search-form {
@@ -297,15 +298,18 @@
         font-size: 0.875rem;
         font-weight: 500;
         transition: all 0.3s ease;
+        text-decoration: none;
     }
 
     .details-button {
         background-color: #007bff;
         color: white;
+        text-decoration: none;
     }
 
         .details-button:hover {
             background-color: #0056b3;
+            text-decoration: none;
         }
 
     .cart-button {
@@ -387,6 +391,56 @@
         color: #fff;
     }
 
+    .input-group {
+        display: flex;
+        justify-content: center; /* Center items horizontally */
+        align-items: center; /* Center items vertically */
+        gap: 0.5rem; /* Add spacing between input and button */
+    }
+
+        .input-group .btn {
+            margin-left: 0; /* Remove any extra margin */
+        }
+
+    .d-flex {
+        display: flex;
+    }
+
+    .justify-content-between {
+        justify-content: space-between; /* Space items apart: one to the left, one to the right */
+    }
+
+    .align-items-center {
+        align-items: center; /* Vertically align items */
+    }
+
+    .ml-auto {
+        margin-left: auto; /* Push the "All Properties" button to the right */
+    }
+
+    .input-group {
+        display: flex;
+        gap: 0.5rem; /* Add spacing between input and button */
+    }
+
+
+    .region-search-btn {
+        background-color: #2d2d2d;
+        color: white;
+        padding: 1rem 2rem;
+        border: 1px solid #333;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: 'Poppins', sans-serif;
+        font-size: 1rem;
+        transition: background-color 0.3s;
+    }
+
+        .region-search-btn:hover {
+            background-color: #383838;
+        }
+
+
     /* Responsive design */
     @*@media (max-width: 768px) {
         .property-details {
@@ -397,48 +451,51 @@
 
 <div class="search-container">
     <div class="search-form">
-        <h2>Search Properties by Seller</h2>
-
-        <form asp-action="ViewPropertiesByOwner" method="post" class="form-inline d-flex justify-content-center">
-            <div class="input-group">
-                <input type="text"
-                       id="sellerId"
-                       name="sellerId"
-                       value="@ViewBag.SellerId"
-                       class="form-control"
-                       placeholder="Enter Seller ID"
-                       required />
-                <button type="submit" class="region-search-btn ml-2">Search</button>
-            </div>
-        </form>
-
-        @Html.ActionLink("View All Properties", "Index", "Buyer", new { @class = "btn btn-outline-primary" })
+        <h2>Search Properties By Seller</h2>
+        <div class="d-flex justify-content-between align-items-center">
+            <form asp-action="ViewPropertiesByOwner" method="post" class="d-flex">
+                <div class="input-group">
+                    <input type="text"
+                           id="sellerId"
+                           name="sellerId"
+                           value="@ViewBag.SellerId"
+                           class="form-control"
+                           placeholder="Enter Seller ID"
+                           required />
+                    <button type="submit" class="btn btn-primary ml-2">Search</button>
+                </div>
+            </form>
+            @Html.ActionLink("View All Properties", "Index", "Admin", new { @class = "btn btn-outline-primary ml-auto" })
+        </div>
     </div>
+</div>
 
-    @if (Model != null && Model.Any())
-    {
-        <div class="property-grid">
-            @foreach (var property in Model)
-            {
-                <div class="property-card">
-                    <img src="https://placehold.co/300x200.png" alt="@property.PropertyName" class="property-image" />
-                    <div class="property-info">
-                        <div class="property-price">$@property.PriceRange.ToString("N0")</div>
-                        <h3 class="property-name">@property.PropertyName</h3>
-                        <div class="property-location">📍 @property.Address</div>
-                        <div class="property-type">@property.PropertyType</div>
-                        <div class="button-group">
-                            @Html.ActionLink("Details", "Details", new { id = property.PropertyId }, new { @class = "details-button" })
-                        </div>
+@if (Model != null && Model.Any())
+{
+    <div class="property-grid">
+        @foreach (var property in Model)
+        {
+            <div class="property-card">
+                <img src="https://placehold.co/300x200.png" alt="@property.PropertyName" class="property-image" />
+                <div class="property-info">
+                    <div class="property-price">$@property.PriceRange.ToString("N0")</div>
+                    <h3 class="property-name">@property.PropertyName</h3>
+                    <div class="property-location">📍 @property.Address</div>
+                    <div class="property-type">@property.PropertyType</div>
+                    <div class="button-group">
+                       @*@Html.ActionLink("Details", "Details", new { id = property.PropertyId }, new { @class = "details-button" })*@
+                        <a href="@Url.Action("Details", "Details", new { id = property.PropertyId })" class="details-button">
+                            <i class="fas fa-info-circle"></i> Details
+                        </a>
                     </div>
                 </div>
-            }
-        </div>
-    }
-    else if (Model != null && !Model.Any())
-    {
-        <div class="search-form">
-            <p class="text-center">No properties found for the entered seller ID.</p>
-        </div>
-    }
-</div>
+            </div>
+        }
+    </div>
+}
+@*else if (Model != null && !Model.Any())
+{
+    <div class="search-form">
+        <p class="text-center">No properties found for the entered seller ID.</p>
+    </div>
+}*@

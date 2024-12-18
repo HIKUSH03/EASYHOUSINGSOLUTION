@@ -59,9 +59,6 @@
             </button>
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Our Properties", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Buyers", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Sellers", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("About Us", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Contact Us", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
@@ -69,22 +66,28 @@
         </div>
         <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
             <ul class="navbar-nav">
-                <!-- Right side of the navbar -->
-                @*@if (Session["user"] != null)
-                {*@
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("#", "#")">My Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("#", "#")">Log Out</a>
-                    </li>
-                @*}
-                else
+                @if (Session["UserName"] != null)
                 {
                     <li class="nav-item">
-                        @Html.ActionLink("Login", "Login", "Account", new { area = "" }, new { @class = "nav-link" })
+                        <text>Welcome, @Session["UserName"]</text>
                     </li>
-                }*@
+                    if (Session["UserType"].ToString() == "Buyer")
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("Buyer Profile", "BuyerProfile", "Buyer", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                    }
+                    if (Session["UserType"].ToString() == "Seller")
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("Seller Profile", "SellerProfile", "Seller", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                    }
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Logout", "Home")">Log Out</a>
+                    </li>
+                }
             </ul>
         </div>
     </nav>

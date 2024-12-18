@@ -194,6 +194,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\images\home_banner.jpg" />
     <Content Include="Content\images\house.png" />
     <Content Include="Content\images\image10.jpg" />
     <Content Include="Content\images\image11.jpg" />
@@ -226,13 +227,6 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Content\images\image5.webp" />
-    <Content Include="Content\images\image6.webp" />
-    <Content Include="Content\images\image18.webp" />
-    <Content Include="Content\images\image19.webp" />
-    <Content Include="Content\images\image20.avif" />
-    <Content Include="Content\images\image24.webp" />
-    <Content Include="Content\images\Sprint Case Study.zip" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -270,17 +264,22 @@
     <Content Include="Views\Seller\Details.cshtml" />
     <Content Include="Views\Seller\Create.cshtml" />
     <Content Include="Views\Seller\Edit.cshtml" />
-    <Content Include="Views\Home\BuyerIndex.cshtml" />
-    <Content Include="Views\Home\SellerIndex.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\Delete.cshtml" />
-    <Content Include="Views\Seller\Index.cshtml" />
-    <Content Include="Views\Seller\AddProperty.cshtml" />
-    <Content Include="Views\Seller\ViewVerifiedProperties.cshtml" />
-    <Content Include="Views\Seller\UnViewVerifiedProperties.cshtml" />
-    <Content Include="Views\Seller\PropertyDetails.cshtml" />
-    <Content Include="Views\Seller\EditProperty.cshtml" />
-    <Content Include="Views\Seller\Delete.cshtml" />
+
+   <Content Include="Views\Seller\Edit.cshtml" />
+<Content Include="Views\Admin\Index.cshtml" />
+<Content Include="Views\Admin\Delete.cshtml" />
+<Content Include="Views\Seller\Index.cshtml" />
+<Content Include="Views\Seller\AddProperty.cshtml" />
+<Content Include="Views\Seller\ViewVerifiedProperties.cshtml" />
+<Content Include="Views\Seller\UnViewVerifiedProperties.cshtml" />
+<Content Include="Views\Seller\PropertyDetails.cshtml" />
+<Content Include="Views\Seller\EditProperty.cshtml" />
+<Content Include="Views\Seller\Delete.cshtml" />
+<Content Include="Views\Auth\BuyerRegister.cshtml" />
+<Content Include="Views\Auth\SellerRegister.cshtml" />
+<Content Include="Views\Admin\Details.cshtml" />
+<Content Include="Views\Buyer\BuyerProfile.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

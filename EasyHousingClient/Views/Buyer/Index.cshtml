@@ -1,6 +1,35 @@
 ﻿@{
+    var imgUrls = new List<string>
+{
+        Url.Content("~/Content/images/image1.jpg"),
+        Url.Content("~/Content/images/image10.jpg"),
+        Url.Content("~/Content/images/image11.jpg"),
+        Url.Content("~/Content/images/image12.jpg"),
+        Url.Content("~/Content/images/image13.jpg"),
+        Url.Content("~/Content/images/image14.jpg"),
+        Url.Content("~/Content/images/image15.jpg"),
+        Url.Content("~/Content/images/image16.jpg"),
+        Url.Content("~/Content/images/image17.jpg"),
+        Url.Content("~/Content/images/image3.jpg"),
+        Url.Content("~/Content/images/image4.jpg"),
+        Url.Content("~/Content/images/image7.jpg"),
+        Url.Content("~/Content/images/image8.jpg"),
+        Url.Content("~/Content/images/image9.jpg"),
+        Url.Content("~/Content/images/image21.jpg"),
+        Url.Content("~/Content/images/image22.jpg"),
+        Url.Content("~/Content/images/image23.jpg"),
+        Url.Content("~/Content/images/image25.jpg"),
+        Url.Content("~/Content/images/image26.jpg"),
+    };
 
+    Random random = new Random();
+    string GetRandomImageUrl()
+    {
+        int randomIndex = random.Next(imgUrls.Count);
+        return imgUrls[randomIndex];
+    }
 }
+
 
 <!DOCTYPE html>
 <html>
@@ -10,6 +39,8 @@
     <title>Real Estate Search</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
     <style>
         /* Base styles */
         .cart-icon-container {
@@ -87,6 +118,7 @@
             font-family: 'Poppins', sans-serif;
             font-size: 1rem;
             transition: background-color 0.3s;
+            text-decoration: none;
         }
 
             .region-search-btn:hover {
@@ -155,6 +187,18 @@
             min-height: 200px;
         }
 
+        .verified-badge {
+            background-color: #4CAF50;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+
         .property-price {
             font-size: 1.5rem;
             font-weight: 600;
@@ -183,6 +227,17 @@
             gap: 0.5rem;
             margin-top: auto;
             padding-top: 1rem;
+        }
+
+        .property-type {
+            display: inline-block;
+            background-color: #2d2d2d;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.875rem;
+            color: #ccc;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
         }
 
         .details-button, .cart-button {
@@ -223,7 +278,7 @@
 <body>
     <div class="search-container">
         <div class="search-form">
-            <button class="region-search-btn">  
+            <button class="region-search-btn">
                 <i class="fas fa-search-location"></i>
                 @Html.ActionLink("Search By Region", "SearchPropertyByRegion", "Buyer", new { @class = "" })
             </button>
@@ -246,62 +301,44 @@
                 @foreach (var property in Model)
                 {
                     <div class="property-card">
-                        <img src="https://placehold.co/300x200.png" alt="@property.PropertyName" class="property-image" />
+
+                        <img src=@GetRandomImageUrl()
+                             alt="@property.PropertyName"
+                             class="property-image"
+                             id="property-banner-img" />
                         <div class="property-info">
-                            <div class="property-price">$@property.PriceRange.ToString("N0")</div>
+                            @if (property.IsActive == true)
+                            {
+                                <div class="verified-badge">
+                                    <i class="fas fa-check-circle"></i> Verified
+                                </div>
+                            }
+                            @if (property.IsActive == false)
+                            {
+                                <div class="verified-badge bg-danger">
+                                    <i class="fa-solid fa-circle-xmark" style="color: #ffffff;"></i>Unverified
+                                </div>
+                            }
+                            <div class="property-price">₹@property.PriceRange.ToString("N0")</div>
                             <h3 class="property-name">@property.PropertyName</h3>
                             <div class="property-location">📍 @property.Address</div>
+                            <div class="property-type">@property.PropertyType</div>
                             <div class="button-group">
                                 <a href="@Url.Action("Details", "Buyer", new { id = property.PropertyId })" class="details-button">
                                     <i class="fas fa-info-circle"></i> Details
                                 </a>
-                                <button class="cart-button" onclick="addToCart(@property.PropertyId)">
-                                    <i class="fas fa-shopping-cart"></i> Add
-                                </button>
+                                @if(property.IsActive)
+                                {
+                                    <button class="cart-button">
+                                        <i class="fas fa-shopping-cart"></i> Add
+                                    </button>
+                                 }
                             </div>
                         </div>
-                    </div>
-                }
+                            </div>
+                    }
             </div>
         }
 
-        <script>
-        let cartCount = 0;
-
-        function updateCartBadge() {
-            document.getElementById('cartBadge').textContent = cartCount;
-        }
-
-        function addToCart(propertyId) {
-            cartCount++;
-            updateCartBadge();
-            // You can make an AJAX call to add the property to the cart
-            $.post('/Cart/Add', { propertyId: propertyId })
-                .done(function () {
-                    alert('Property added to cart successfully!');
-                })
-                .fail(function () {
-                    alert('Failed to add property to cart.');
-                    cartCount--; // Revert the count if the operation failed
-                    updateCartBadge();
-                });
-        }
-
-        function goToCart() {
-            window.location.href = '@Url.Action("Index", "Cart")';
-        }
-
-        function sortProperties(key) {
-            const button = event.target.closest('.sort-button');
-            document.querySelectorAll('.sort-button').forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-
-            // You can implement server-side sorting by redirecting with sort parameters
-            window.location.href = '@Url.Action("Index", "Buyer")' + '?sortBy=' + key;
-        }
-
-        // Initialize cart badge
-        updateCartBadge();
-        </script>
 </body>
 </html>

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -20,6 +22,7 @@ namespace EasyHousingClient.Controllers
                 {
                     var jsonString = await response.Content.ReadAsStringAsync();
                     var properties = JsonConvert.DeserializeObject<List<Property>>(jsonString);
+                    //return View(properties.Where(x => x.IsActive == true).ToList());
                     return View(properties);
                 }
                 return View();
@@ -93,7 +96,6 @@ namespace EasyHousingClient.Controllers
                 }
                 return View();
             }
-            //return View(new List<Property>());
         }
 
         [HttpPost]
@@ -113,6 +115,43 @@ namespace EasyHousingClient.Controllers
                     var properties = JsonConvert.DeserializeObject<List<Property>>(jsonString);
                     return View(properties);
                 }
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> BuyerProfile()
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync("http://localhost:54057/api/buyers/buyer/" + Session["UserName"]);
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    int buyerId = Convert.ToInt32(jsonString);
+                    response = await httpClient.GetAsync("http://localhost:54057/api/buyers/" + buyerId);
+                    var buyerObj = await response.Content.ReadAsStringAsync();
+                    var buyer = JsonConvert.DeserializeObject<Buyer>(buyerObj);
+                    return View(buyer);
+                }
+                return View();
+            }
+        }
+
+        // post request to update the buyer profile
+        [HttpPost]
+        public async Task<ActionResult> BuyerProfile(Buyer buyer)
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                StringContent content = new StringContent(JsonConvert.SerializeObject(buyer) , System.Text.Encoding.UTF8 , "application/json");
+                var response = await httpClient.PutAsync("http://localhost:54057/api/buyers/updateProfile", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    TempData["Message"] = "Profile Updated Successfully";
+                    return RedirectToAction("BuyerProfile");
+                }
+                TempData["Message"] = "Can not Updated!";
                 return View();
             }
         }

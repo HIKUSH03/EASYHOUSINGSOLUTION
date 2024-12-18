@@ -38,6 +38,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
+            margin-top: 2rem;
         }
 
         .property-card {
@@ -46,7 +47,8 @@
             overflow: hidden;
             transition: transform 0.3s;
             display: flex;
-            flex-direction: column;
+            flex-direction: column; 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
             .property-card:hover {
@@ -64,27 +66,75 @@
             display: flex;
             flex-direction: column;
             flex-grow: 1;
+            min-height: 200px;
+        }
+        .verified-badge {
+            background-color: #4CAF50;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-bottom: 0.5rem;
         }
 
         .property-price {
             font-size: 1.5rem;
             font-weight: 600;
             color: #4CAF50;
+            margin-bottom: 0.5rem;
+        }
+
+        .property-name {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin: 0.5rem 0;
+            line-height: 1.4;
+        }
+
+        .property-location {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
         }
 
         .button-group {
             display: flex;
             gap: 0.5rem;
             margin-top: auto;
+            padding-top: 1rem;
+        }
+
+        .property-type {
+            display: inline-block;
+            background-color: #2d2d2d;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.875rem;
+            color: #ccc;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
         }
 
         .details-button, .cart-button {
             flex: 1;
-            padding: 0.75rem;
+            padding: 0.75rem 1rem;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
             transition: all 0.3s ease;
+            text-decoration: none;
         }
 
         .details-button {
@@ -108,7 +158,7 @@
 </head>
 <body>
     <div class="search-container">
-        <div class="d-flex justify-content-between align-items-center">
+        @*<div class="d-flex justify-content-between align-items-center">
             <h2>Property Listings</h2>
             <div>
                 @Html.ActionLink("View All Properties", "Index", "Buyer", new { @class = "btn btn-outline-primary" })
@@ -126,34 +176,79 @@
                     <button type="submit" class="btn btn-primary ml-2">Search</button>
                 </div>
             </form>
-        </div>
-        @if (Model != null && Model.Any())
-        {
-            <div class="property-grid">
-                @foreach (var property in Model)
-                {
-                    <div class="property-card">
-                        <img src="https://placehold.co/300x200" alt="@property.PropertyName" class="property-image" />
-                        <div class="property-info">
-                            <div class="property-price">@property.PriceRange</div>
-                            <h3>@property.PropertyName</h3>
-                            <div>@property.Description</div>
-                            <div class="button-group">
-                                @Html.ActionLink("Details", "Details", new { id = property.PropertyId }, new { @class = "details-button" })
-                                <form method="post" asp-action="AddToCart">
-                                    <input type="hidden" name="propertyId" value="@property.PropertyId" />
-                                    <button type="submit" class="cart-button">Add 🛒</button>
-                                </form>
-                            </div>
+        </div>*@
+
+        <div class="search-container">
+            <div class="search-form">
+                <h2>Search Properties By Region</h2>
+                <div class="d-flex justify-content-between align-items-center">
+                    <!-- Search Form -->
+                    <form asp-action="SearchPropertyByRegion" method="post" class="d-flex">
+                        <div class="input-group">
+                            <input type="text"
+                                   id="region"
+                                   name="region"
+                                   value="@ViewBag.Region"
+                                   class="form-control"
+                                   placeholder="Enter Region"
+                                   required />
+                            <button type="submit" class="btn btn-primary ml-2">Search</button>
                         </div>
-                    </div>
-                }
+                    </form>
+                    @Html.ActionLink("View All Properties", "Index", "Buyer", new { @class = "btn btn-outline-primary" })
+                </div>
             </div>
-        }
-        else
-        {
-            <h3>No properties found!</h3>
-        }
-    </div>
+        </div>
+
+
+                    @if (Model != null && Model.Any())
+                    {
+                        <div class="property-grid">
+                            @foreach (var property in Model)
+                            {
+                                <div class="property-card">
+                                    <img src="https://placehold.co/300x200" alt="@property.PropertyName" class="property-image" />
+                                    <div class="property-info">
+                                        @if (property.IsActive == true)
+                                        {
+                                            <div class="verified-badge">
+                                                <i class="fas fa-check-circle"></i> Verified
+                                            </div>
+                                        }
+                                        @if (property.IsActive == false)
+                                        {
+                                            <div class="verified-badge bg-danger">
+                                                <i class="fa-solid fa-circle-xmark" style="color: #ffffff;"></i>Unverified
+                                            </div>
+                                        }
+                                        <div class="property-price">$@property.PriceRange.ToString("N0")</div>
+                                        <h3 class="property-name">@property.PropertyName</h3>
+                                        <div class="property-location">📍 @property.Address</div>
+                                        <div class="property-type">@property.PropertyType</div>
+                                        <div class="button-group">
+                                            <a href="@Url.Action("Details", "Buyer", new { id = property.PropertyId })" class="details-button">
+                                                <i class="fas fa-info-circle"></i> Details
+                                            </a>
+                                            <button class="cart-button" onclick="addToCart(@property.PropertyId)">
+                                                <i class="fas fa-shopping-cart"></i> Add
+                                            </button>
+                                        </div>
+                                        @*<div class="button-group">
+            @Html.ActionLink("Details", "Details", new { id = property.PropertyId }, new { @class = "details-button" })
+            <form method="post" asp-action="AddToCart">
+                <input type="hidden" name="propertyId" value="@property.PropertyId" />
+                <button type="submit" class="cart-button">Add 🛒</button>
+            </form>
+        </div>*@
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <h3>No properties found!</h3>
+                    }
+                </div>
 </body>
 </html>
