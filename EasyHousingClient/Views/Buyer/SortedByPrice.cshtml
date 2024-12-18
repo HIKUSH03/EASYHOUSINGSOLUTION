@@ -157,6 +157,18 @@
             min-height: 200px;
         }
 
+        .verified-badge {
+            background-color: #4CAF50;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+
         .property-price {
             font-size: 1.5rem;
             font-weight: 600;
@@ -272,6 +284,18 @@
                         <div class="property-card">
                             <img src="https://placehold.co/300x200" alt="@property.PropertyName" class="property-image" />
                             <div class="property-info">
+                                @if (property.IsActive == true)
+                                {
+                                    <div class="verified-badge">
+                                        <i class="fas fa-check-circle"></i> Verified
+                                    </div>
+                                }
+                                @if (property.IsActive == false)
+                                {
+                                    <div class="verified-badge bg-danger">
+                                        <i class="fa-solid fa-circle-xmark" style="color: #ffffff;"></i>Unverified
+                                    </div>
+                                }
                                 <div class="property-price">$@property.PriceRange.ToString("N0")</div>
                                 <h3 class="property-name">@property.PropertyName</h3>
                                 <div class="property-location">📍 @property.Address</div>

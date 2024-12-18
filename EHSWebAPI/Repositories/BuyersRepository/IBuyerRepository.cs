@@ -11,9 +11,10 @@ namespace EHSWebAPI.Repositories.BuyersRepository
     public interface IBuyerRepository
     {
         Buyer CreateBuyer(Buyer buyer);
+        Buyer GetBuyerById(int id);
         int GetBuyerByUsername(string username);
         IList<Buyer> GetAllBuyers();
-        //bool UpdateBuyer(Buyer buyer);
+        bool UpdateBuyer(Buyer buyer);
         Property GetPropertyById(int id);
         IEnumerable<Property> GetPropertyByPrice();
         Cart GetCartByBuyerId(int buyerId);

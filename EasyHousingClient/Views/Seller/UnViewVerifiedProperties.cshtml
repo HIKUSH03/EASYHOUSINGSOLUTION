@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Real Estate Search</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         /* Base styles */
@@ -217,22 +216,13 @@
     </style>
     @model IEnumerable<EHSDataAccessLayer.Entity.Property>
 
-
-
     @{
         ViewBag.Title = "Properties";
     }
 
-    @if (TempData["SuccessMessage"] != null)
-    {
-        <div class="alert alert-success">
-            @TempData["SuccessMessage"]
-        </div>
-    }
-
     <div class="search-container">
         <div class="search-form">
-            <button class="add-property-btn" onclick="location.href='@Url.Action("AddProperty")'">
+            <button class="add-property-btn" onclick="location.href='@Url.Action("AddProperty", new { id = Session["SellerId"] })'">
                 <i class="fas fa-plus"></i> Add Property
             </button>
         </div>
@@ -252,16 +242,10 @@
                 <div class="property-card">
                     <img src="/api/placeholder/300/200" alt="@property.PropertyName" class="property-image">
                     <div class="property-info">
-                        @if (property.IsActive == true)
+                        @if (property.IsActive)
                         {
                             <div class="verified-badge">
                                 <i class="fas fa-check-circle"></i> Verified
-                            </div>
-                        }
-                        @if (property.IsActive == false)
-                        {
-                            <div class="verified-badge bg-danger">
-                                <i class="fa-solid fa-circle-xmark" style="color: #ffffff;"></i>Unverified
                             </div>
                         }
                         <div class="property-price">₹@property.PriceRange.ToString("N0")</div>
@@ -275,17 +259,15 @@
                             <a href="@Url.Action("PropertyDetails", "Seller", new { id = property.PropertyId })" class="details-button">
                                 <i class="fas fa-info-circle"></i> Details
                             </a>
-
                         </div>
                     </div>
                 </div>
             }
-             </div>
+        </div>
     </div>
 
     @section Scripts {
-        <script>
-            // Add any additional JavaScript functionality here
+        <script>// Add any additional JavaScript functionality here
             function updateFilterButtons() {
                 const currentPath = window.location.pathname;
                 const buttons = document.querySelectorAll('.filter-button');
