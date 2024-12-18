@@ -93,7 +93,6 @@ namespace EasyHousingClient.Controllers
                 }
                 return View();
             }
-            //return View(new List<Property>());
         }
 
         [HttpPost]
@@ -116,5 +115,6 @@ namespace EasyHousingClient.Controllers
                 return View();
             }
         }
+
     }
 }
