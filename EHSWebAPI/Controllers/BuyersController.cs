@@ -35,6 +35,14 @@ namespace EHSWebAPI.Controllers
             return _buyerRepository.GetAllBuyers();
         }
 
+        // get buyer by Id
+        [HttpGet]
+        [Route("{id}")]
+        public Buyer GetBuyerById(int id)
+        {
+            return _buyerRepository.GetBuyerById(id);
+        }
+
         // get buyer by username
         [HttpGet]
         [Route("buyer/{username}")]
@@ -99,6 +107,17 @@ namespace EHSWebAPI.Controllers
                 return Ok();
             }
             return NotFound();
+        }
+
+
+        [HttpPut]
+        [Route("updateProfile")]
+        public IHttpActionResult UpdateBuyer([FromBody] Buyer buyer)
+        {
+             var result = _buyerRepository.UpdateBuyer(buyer);
+            if (result)
+                return Ok("updated");
+            return BadRequest("Failed to update Buyer Details!");
         }
 
     }
