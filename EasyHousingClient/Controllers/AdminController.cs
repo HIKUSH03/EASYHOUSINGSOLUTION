@@ -114,12 +114,12 @@ namespace EasyHousingClient.Controllers
             try
             {
                 // Call API to get seller by id for deletion confirmation
-                var seller = await GetFromApi<Seller>($"api/property/{id}");
-                if (seller == null)
+                var property = await GetFromApi<Property>($"api/property/{id}");
+                if (property == null)
                 {
                     return HttpNotFound();
                 }
-                return View(seller);
+                return View(property);
             }
             catch (Exception ex)
             {

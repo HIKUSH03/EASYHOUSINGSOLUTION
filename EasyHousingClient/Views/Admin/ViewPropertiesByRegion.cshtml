@@ -318,17 +318,18 @@
     }
 
     .details-button, .cart-button {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem; /* Space between icon and text */
+        flex: 1;
         padding: 0.75rem 1rem;
         border: none;
         border-radius: 5px;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
         font-size: 0.875rem;
         font-weight: 500;
-        transition: all 0.3s ease;
-        text-decoration: none; /* Prevent underline for links */
+        transition: all 0.3s ease; /* Prevent underline for links */
     }
 
         .details-button i, .cart-button i {
@@ -380,7 +381,7 @@
 <div class="search-container">
     <div class="search-form">
        
-        <h2>Search Property By Region</h2>
+        <h2>Search Properties By Region</h2>
         <div class="d-flex justify-content-between align-items-center">
             <!-- Search Form -->
             <form asp-action="SearchPropertyByRegion" method="post" class="d-flex">
@@ -414,11 +415,12 @@
                     <div class="property-price">$@property.PriceRange.ToString("N0")</div>
                     <h3 class="property-name">@property.PropertyName</h3>
                     <div class="property-location">📍 @property.Address</div>
+                    <div class="property-type">@property.PropertyType</div>
                     <div class="button-group">
                         <a href="@Url.Action("Details", "Admin", new { id = property.PropertyId })" class="details-button">
                             <i class="fas fa-info-circle"></i> Details
                         </a>
-                        
+
                     </div>
                 </div>
             </div>

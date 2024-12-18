@@ -343,6 +343,7 @@
             @Html.ActionLink("Search by Seller", "ViewPropertiesByOwner", "Admin", new { @class = "" })
         </button>
     </div>
+</div>
 
     @if (Model != null && Model.Any())
     {
@@ -355,6 +356,7 @@
                         <div class="property-price">$@property.PriceRange.ToString("N0")</div>
                         <h3 class="property-name">@property.PropertyName</h3>
                         <div class="property-location">📍 @property.Address</div>
+                        <div class="property-type">@property.PropertyType</div>
                         <div class="button-group">
                             <a href="@Url.Action("Details", "Admin", new { id = property.PropertyId })" class="details-button">
                                 <i class="fas fa-info-circle"></i> Details
@@ -365,6 +367,8 @@
             }
         </div>
     }
+
+
     <style>
         /* Base styles */
         body {
@@ -400,11 +404,18 @@
             font-family: 'Poppins', sans-serif;
             font-size: 1rem;
             transition: background-color 0.3s;
+            text-decoration: none;
         }
+
+            .region-search-btn a, .seller-search-btn a {
+                color: inherit; /* Ensure link text matches button text color */
+                text-decoration: none; /* Remove underline */
+            }
 
             .region-search-btn:hover, .seller-search-btn:hover {
                 background-color: #383838;
             }
+
 
         /* Property grid styles */
         /* Property grid styles */
@@ -486,17 +497,19 @@
         }
 
         .details-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem; /* Space between icon and text */
+            flex: 1;
             padding: 0.75rem 1rem;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
             font-size: 0.875rem;
             font-weight: 500;
-            transition: all 0.3s ease;
-            text-decoration: none; /* Prevent underline for links */
+            transition: all 0.3s ease; /* Prevent underline for links */
+            text-decoration: none;
         }
 
             .details-button i {
