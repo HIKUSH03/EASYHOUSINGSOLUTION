@@ -180,7 +180,7 @@ namespace EHSWebAPI.Controllers
 
         // Property Verification and Status Management
 
-        [HttpPut]
+        [HttpPost]
         [Route("{id:int}/verify")]
         public IHttpActionResult VerifyProperty(int id, [FromBody] bool isVerified)
         {
