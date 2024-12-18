@@ -2,7 +2,7 @@
 
 namespace EasyHousingClient.Controllers
 {
-    public class HomeController : SecurityController
+    public class HomeController : Controller
     {
 
         public ActionResult Index()
