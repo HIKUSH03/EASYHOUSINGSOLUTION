@@ -95,50 +95,11 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
 <style>
     /* Base styles */
-    .cart-icon-container {
-        position: fixed;
-        top: 100px; /* Position it below the navbar */
-        right: 20px;
-        z-index: 999;
-        background-color: #4CAF50;
-        border-radius: 50%;
-        width: 60px;
-        height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        transition: transform 0.2s, background-color 0.2s;
-    }
-
-        .cart-icon-container:hover {
-            transform: scale(1.1);
-            background-color: #45a049;
-        }
-
-    .cart-icon {
-        color: white;
-        font-size: 24px;
-    }
-
-    .cart-badge {
-        position: absolute;
-        top: -5px;
-        right: -5px;
-        background-color: #ff4444;
-        color: white;
-        border-radius: 50%;
-        width: 24px;
-        height: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 12px;
-        font-weight: bold;
-    }
+    
 
     body {
         background-color: #121212;
@@ -439,7 +400,17 @@
         .region-search-btn:hover {
             background-color: #383838;
         }
-
+    .verified-badge {
+        background-color: #4CAF50;
+        color: white;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        margin-bottom: 0.5rem;
+    }
 
     /* Responsive design */
     @*@media (max-width: 768px) {
@@ -478,13 +449,31 @@
             <div class="property-card">
                 <img src="https://placehold.co/300x200.png" alt="@property.PropertyName" class="property-image" />
                 <div class="property-info">
-                    <div class="property-price">$@property.PriceRange.ToString("N0")</div>
+                    @if (property.IsActive == true)
+
+                    {
+                        <div class="verified-badge">
+                            <i class="fas fa-check-circle"></i> Verified
+                        </div>
+
+                    }
+
+                    @if (property.IsActive == false)
+
+                    {
+                        <div class="verified-badge bg-danger">
+                            <i class="fa-solid fa-circle-xmark" style="color: #ffffff;"></i>Unverified
+                        </div>
+
+                    }
+
+                    <div class="property-price">₹@property.PriceRange.ToString("N0")</div>
                     <h3 class="property-name">@property.PropertyName</h3>
                     <div class="property-location">📍 @property.Address</div>
                     <div class="property-type">@property.PropertyType</div>
                     <div class="button-group">
-                       @*@Html.ActionLink("Details", "Details", new { id = property.PropertyId }, new { @class = "details-button" })*@
-                        <a href="@Url.Action("Details", "Details", new { id = property.PropertyId })" class="details-button">
+                        @*@Html.ActionLink("Details", "Details", new { id = property.PropertyId }, new { @class = "details-button" })*@
+                        <a href="@Url.Action("Details", "Admin", new { id = property.PropertyId })" class="details-button">
                             <i class="fas fa-info-circle"></i> Details
                         </a>
                     </div>
@@ -494,8 +483,8 @@
     </div>
 }
 @*else if (Model != null && !Model.Any())
-{
-    <div class="search-form">
-        <p class="text-center">No properties found for the entered seller ID.</p>
-    </div>
-}*@
+    {
+        <div class="search-form">
+            <p class="text-center">No properties found for the entered seller ID.</p>
+        </div>
+    }*@

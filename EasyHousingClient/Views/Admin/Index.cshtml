@@ -329,6 +329,7 @@
 </html>-->
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
 <div class="search-container">
     <div class="search-form">
@@ -353,7 +354,24 @@
                 <div class="property-card">
                     <img src="https://placehold.co/300x200.png" alt="@property.PropertyName" class="property-image" /> <!-- Ensure you have an ImageUrl property -->
                     <div class="property-info">
-                        <div class="property-price">$@property.PriceRange.ToString("N0")</div>
+                        @if (property.IsActive == true)
+
+                        {
+                            <div class="verified-badge">
+                                <i class="fas fa-check-circle"></i> Verified
+                            </div>
+
+                        }
+
+                        @if (property.IsActive == false)
+
+                        {
+                            <div class="verified-badge bg-danger">
+                                <i class="fa-solid fa-circle-xmark" style="color: #ffffff;"></i>Unverified
+                            </div>
+
+                        }
+                        <div class="property-price">₹@property.PriceRange.ToString("N0")</div>
                         <h3 class="property-name">@property.PropertyName</h3>
                         <div class="property-location">📍 @property.Address</div>
                         <div class="property-type">@property.PropertyType</div>
@@ -441,6 +459,19 @@
                 transform: translateY(-5px);
             }
 
+
+        .verified-badge {
+            background-color: #4CAF50;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+ 
         .property-image {
             width: 100%;
             height: 200px;

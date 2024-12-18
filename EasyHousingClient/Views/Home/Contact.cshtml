@@ -1,44 +1,124 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact</title>
-    <link href="https://fonts.googleapis.com/css2?family=Recoleta:wght@400&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background-color: #121212; /* Set background color */
-            font-family: 'Recoleta', sans-serif; /* Use Recoleta font */
-            color: white; /* Set text color for better contrast */
-            margin: 0; /* Remove default margin */
-            padding: 20px; /* Add padding for content spacing */
+﻿@{
+    ViewBag.Title = "Our Team";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    body {
+        background-color: #121212;
+        color: #ffffff;
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 20px;
+        line-height: 1.6;
+    }
+
+    .team-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        background-color: #1e1e1e;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        color: #ffffff;
+        margin-bottom: 2rem;
+        font-size: 2.5rem;
+    }
+
+    .team-section {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        justify-content: center; /* Ensures content is centered */
+    }
+
+    .team-member {
+        background-color: #2d2d2d;
+        border-radius: 10px;
+        padding: 1.5rem;
+        text-align: center;
+        transition: transform 0.3s ease;
+        width: 100%; /* Ensure full width of grid cell */
+    }
+
+    .team-member:hover {
+        transform: translateY(-10px);
+    }
+
+    .team-member h3 {
+        color: #4CAF50;
+        margin-bottom: 0.5rem;
+    }
+
+    .team-member p {
+        color: #999;
+        margin-bottom: 1rem;
+    }
+
+    .contact-info {
+        margin-top: 2rem;
+        text-align: center;
+    }
+
+    .contact-info a {
+        color: #4CAF50;
+        text-decoration: none;
+        margin: 0 1rem;
+        transition: color 0.3s ease;
+    }
+
+    .contact-info a:hover {
+        color: #45a049;
+    }
+
+    @*@media (max-width: 992px) {
+        .team-section {
+            grid-template-columns: repeat(2, 1fr);
         }
+    }
 
-        h2, h3 {
-            margin: 10px 0; /* Space out headings */
+    @media (max-width: 768px) {
+        .team-section {
+            grid-template-columns: 1fr;
         }
+    }*@
+</style>
 
-        address {
-            line-height: 1.5; /* Improve readability */
-        }
-    </style>
-</head>
-<body>
-    <main aria-labelledby="title">
-        <h2 id="title">@ViewBag.Title</h2>
-        <h3>@ViewBag.Message</h3>
+<div class="team-container">
+    <h2>Our Team</h2>
 
-        <address>
-            One Microsoft Way<br />
-            Redmond, WA 98052-6399<br />
-            <abbr title="Phone">P:</abbr>
-            425.555.0100
-        </address>
-
-        <address>
-            <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-            <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-        </address>
-    </main>
-</body>
-</html>
+    <div class="team-section">
+        <div class="team-member">
+            <h3>Himanshu Kushwaha</h3>
+            <p>himanshu.kushwaha@capgemini.com</p>
+        </div>
+        <div class="team-member">
+            <h3>Shresth Agarwal</h3>
+            <p>shresth.a.agarwal@capgemini.com</p>
+        </div>
+        <div class="team-member">
+            <h3>Javed Ali</h3>
+            <p>javed.ali@capgemini.com</p>
+        </div>
+        <div class="team-member">
+            <h3>Shreyash Gaur</h3>
+            <p>shreyash.gaur@capgemini.com</p>
+        </div>
+        <div class="team-member">
+            <h3>Shammi Badyal</h3>
+            <p>shammi.badyal@capgemini.com</p>
+        </div>
+        <div class="team-member">
+            <h3>Devendra Sharma</h3>
+            <p>devendra.sharma@capgemini.com</p>
+        </div>
+        <div class="team-member">
+            <h3>Dheeraj Singh</h3>
+            <p>dheeraj.singh@capgemini.com</p>
+        </div>
+    </div>
+</div>

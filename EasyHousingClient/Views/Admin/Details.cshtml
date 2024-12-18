@@ -1,4 +1,4 @@
-﻿@model EHSDataAccessLayer.Entity.Property
+@model EHSDataAccessLayer.Entity.Property
 
 @{
     ViewBag.Title = "Details";
@@ -93,7 +93,41 @@
         .btn-back:hover {
             background-color: #0056b3; /* Darker blue on hover */
         }
+
+    .alert {
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+
+    .alert-success {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+    }
+
+    .alert-danger {
+        color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+    }
 </style>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
 <h2>Property Details</h2>
 <div class="property-details">
     <h4>Property Information</h4> <hr /> <dl class="dl-horizontal">
@@ -120,8 +154,25 @@
 <div class="button-container">
     <!-- Delete Button -->
     @Html.ActionLink("Delete", "Delete", new { id = Model.PropertyId }, new { @class = "btn btn-delete" })
-    <!-- Verify Button -->
-    @Html.ActionLink("Verify", "IsVerified", new { id = Model.PropertyId }, new { @class = "btn btn-verify" })
+    
+    <!-- Verify/Unverify Buttons -->
+    @if (!Model.IsActive)
+    {
+        using (Html.BeginForm("IsVerified", "Admin", new { id = Model.PropertyId }, FormMethod.Post, new { style = "display: inline;" }))
+        {
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-verify">Verify</button>
+        }
+    }
+    else
+    {
+        using (Html.BeginForm("UnVerified", "Admin", new { id = Model.PropertyId }, FormMethod.Post, new { style = "display: inline;" }))
+        {
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-delete">UnVerify</button>
+        }
+    }
+
     <!-- Back Button -->
     @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-back" })
 </div>

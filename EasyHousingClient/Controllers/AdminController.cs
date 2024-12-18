@@ -1,4 +1,4 @@
-﻿using EasyHousingClient.Models;
+using EasyHousingClient.Models;
 using EHSDataAccessLayer.Entity;
 using Newtonsoft.Json;
 using System;
@@ -14,7 +14,6 @@ namespace EasyHousingClient.Controllers
     public class AdminController : BaseController
     {
         //private readonly string _adminApiUrl = "http://localhost:54057/";
-
 
         [HttpGet]
         public ActionResult ViewPropertiesByRegion()
@@ -54,7 +53,6 @@ namespace EasyHousingClient.Controllers
                 return View(new List<Property>());
             }
         }
-
 
         [HttpGet]
         public ActionResult ViewPropertiesByOwner()
@@ -96,9 +94,6 @@ namespace EasyHousingClient.Controllers
             }
         }
 
-        
-
-
         [HttpGet]
         public async Task<ActionResult> Index()
         {
@@ -106,7 +101,6 @@ namespace EasyHousingClient.Controllers
             var properties = await GetFromApi<List<Property>>("api/property");
 
             return View(properties);
-            
         }
 
         public async Task<ActionResult> Delete(int id)
@@ -154,14 +148,88 @@ namespace EasyHousingClient.Controllers
             return View();
         }
 
-
         [HttpPost]
         public async Task<ActionResult> IsVerified(int id)
         {
-            var query = $"api/property/{id}/verify";
+            try
+            {
+                var query = $"api/property/verify/{id}";
+                var response = await PostToApi<bool>(query, true);
+                
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    if (!string.IsNullOrEmpty(content))
+                    {
+                        var success = JsonConvert.DeserializeObject<bool>(content);
+                        if (success)
+                        {
+                            TempData["SuccessMessage"] = "Property verified successfully.";
+                        }
+                        else
+                        {
+                            TempData["ErrorMessage"] = "Failed to verify property.";
+                        }
+                    }
+                    else
+                    {
+                        TempData["SuccessMessage"] = "Property verified successfully.";
+                    }
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = $"Failed to verify property. Status code: {response.StatusCode}";
+                }
 
-            var properties = await PostToApi<bool>(query, true);
-            return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = id });
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"Error verifying property: {ex.Message}";
+                return RedirectToAction("Details", new { id = id });
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UnVerified(int id)
+        {
+            try
+            {
+                var query = $"api/property/verify/{id}";
+                var response = await PostToApi<bool>(query, false);
+                
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    if (!string.IsNullOrEmpty(content))
+                    {
+                        var success = JsonConvert.DeserializeObject<bool>(content);
+                        if (success)
+                        {
+                            TempData["SuccessMessage"] = "Property unverified successfully.";
+                        }
+                        else
+                        {
+                            TempData["ErrorMessage"] = "Failed to unverify property.";
+                        }
+                    }
+                    else
+                    {
+                        TempData["SuccessMessage"] = "Property unverified successfully.";
+                    }
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = $"Failed to unverify property. Status code: {response.StatusCode}";
+                }
+
+                return RedirectToAction("Details", new { id = id });
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"Error unverifying property: {ex.Message}";
+                return RedirectToAction("Details", new { id = id });
+            }
         }
 
         [HttpGet]
@@ -170,7 +238,7 @@ namespace EasyHousingClient.Controllers
             using (HttpClient httpClient = new HttpClient())
             {
                 var queary = $"api/property/{id}";
-                var response = await httpClient.GetAsync("http://localhost:54057/"+queary);
+                var response = await httpClient.GetAsync("http://localhost:54057/" + queary);
                 if (response.IsSuccessStatusCode)
                 {
                     var jsonString = await response.Content.ReadAsStringAsync();
