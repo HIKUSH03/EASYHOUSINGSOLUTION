@@ -35,7 +35,8 @@ namespace EasyHousingClient.Controllers
             try
             {
                 // Get properties from API
-                var query = $"api/property/\"region?region={region}";
+                var lk = $"region?region={region}";
+                var query = $"api/property/{lk}";
 
                 var properties = await GetFromApi<List<Property>>(query);
 
@@ -108,15 +109,53 @@ namespace EasyHousingClient.Controllers
             
         }
 
-        [HttpDelete]
         public async Task<ActionResult> Delete(int id)
         {
-            var properties = await PostToApi<int>($"api/property/",id);
-            return RedirectToAction("Index");
+            try
+            {
+                // Call API to get seller by id for deletion confirmation
+                var seller = await GetFromApi<Seller>($"api/property/{id}");
+                if (seller == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(seller);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = "An error occurred while retrieving seller for deletion: " + ex.Message;
+                return View();
+            }
+        }
+
+        // POST: Seller/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmed(int id)
+        {
+            try
+            {
+                // Call API to delete seller
+                var response = await _httpClient.DeleteAsync($"api/property/{id}");
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "Failed to delete seller.";
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = "An error occurred while deleting the seller: " + ex.Message;
+            }
+
+            return View();
         }
 
 
-        [HttpPut]
+        [HttpPost]
         public async Task<ActionResult> IsVerified(int id)
         {
             var query = $"api/property/{id}/verify";
@@ -130,7 +169,8 @@ namespace EasyHousingClient.Controllers
         {
             using (HttpClient httpClient = new HttpClient())
             {
-                var response = await httpClient.GetAsync("http://localhost:54057/" + id);
+                var queary = $"api/property/{id}";
+                var response = await httpClient.GetAsync("http://localhost:54057/"+queary);
                 if (response.IsSuccessStatusCode)
                 {
                     var jsonString = await response.Content.ReadAsStringAsync();

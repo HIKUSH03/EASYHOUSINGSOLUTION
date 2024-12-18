@@ -5,10 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-4">
-    
-    <!-- Properties Table -->
-    @if (Model != null && Model.Any())
+<!--<div class="container mt-4">-->
+<!-- Properties Table -->
+<!--@if (Model != null && Model.Any())
     {
         <div class="row">
             <div class="col-md-12">
@@ -52,7 +51,465 @@
             </div>
         </div>
         <div>
-            
+
         </div>
     }
+</div>-->
+<!--<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Search</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles */
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .search-container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Search form styles */
+        .search-form {
+            background-color: #1e1e1e;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .region-search-btn, .seller-search-btn {
+            background-color: #2d2d2d;
+            color: white;
+            padding: 1rem 2rem;
+            border: 1px solid #333;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+            .region-search-btn:hover, .seller-search-btn:hover {
+                background-color: #383838;
+            }
+
+        /* Filter styles */
+        .filters {
+            display: flex;
+            justify-content: flex-end;
+            margin: 1rem 0;
+            gap: 1rem;
+        }
+
+        .delete-button {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid #333;
+            background-color: #2d2d2d;
+            color: #ffffff;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s;
+        }
+
+            .delete-button:hover {
+                background-color: #383838;
+            }
+
+        /* Property grid styles */
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Property card styles */
+        .property-card {
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+            .property-card:hover {
+                transform: translateY(-5px);
+            }
+
+        .property-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .property-info {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            min-height: 200px;
+        }
+
+        .property-price {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #4CAF50;
+            margin-bottom: 0.5rem;
+        }
+
+        .property-name {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin: 0.5rem 0;
+            line-height: 1.4;
+        }
+
+        .property-location {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .property-type {
+            display: inline-block;
+            background-color: #2d2d2d;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.875rem;
+            color: #ccc;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .details-button {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background-color: #007bff;
+            color: white;
+        }
+
+            .details-button:hover {
+                background-color: #0056b3;
+            }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: #1e1e1e;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 800px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #999;
+        }
+
+            .close-modal:hover {
+                color: #fff;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="search-container">
+        <div class="search-form">
+            <button class="region-search-btn">
+                <i class="fas fa-search-location"></i> Search by Region
+            </button>
+            <button class="seller-search-btn">
+                <i class="fas fa-user"></i> Search by Seller
+            </button>
+        </div>
+
+        <div class="filters">
+            <button class="delete-button" onclick="deleteProperties()">
+                <i class="fas fa-trash-alt"></i> Delete
+            </button>
+        </div>
+
+        <div class="property-grid" id="propertyResults">
+        </div>
+    </div>-->
+<!-- Modal Code -->
+<!--<div class="modal" id="propertyModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="propertyDetails"></div>
+        </div>
+    </div>
+
+    <script>const sampleProperties = [
+            {
+                image: 'https://placehold.co/300x200.png',
+                price: 750000,
+                name: 'Modern Downtown Apartment',
+                location: 'Los Angeles, CA',
+                type: 'apartment'
+            }
+        ];
+
+        function displayProperties(properties) {
+            const container = document.getElementById('propertyResults');
+            container.innerHTML = '';
+
+            properties.forEach(property => {
+                const card = `
+<div class="property-card">
+<img src="${property.image}" alt="${property.name}" class="property-image">
+<div class="property-info">
+<div class="property-price">$${property.price.toLocaleString()}</div>
+<h3 class="property-name">${property.name}</h3>
+<div class="property-location">📍 ${property.location}</div>
+<div class="property-type">${property.type}</div>
+<button class="details-button">
+<i class="fas fa-info-circle"></i> Details
+</button>
 </div>
+</div>
+                    `;
+                container.insertAdjacentHTML('beforeend', card);
+            });
+        }
+
+        function deleteProperties() {
+            document.getElementById('propertyResults').innerHTML = '';
+            alert('All properties have been deleted.');
+        }
+
+        // Display initial properties
+        displayProperties(sampleProperties);</script>
+</body>
+</html>-->
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+<div class="search-container">
+    <div class="search-form">
+        <button class="region-search-btn">
+
+            <i class="fas fa-search-location"></i>
+            @Html.ActionLink("Search by Region", "ViewPropertiesByRegion", "Admin", new { @class = "" })
+        </button>
+        <button class="seller-search-btn">
+
+            <i class="fas fa-user"></i>
+            @Html.ActionLink("Search by Seller", "ViewPropertiesByOwner", "Admin", new { @class = "" })
+        </button>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="property-grid" id="propertyResults">
+            @foreach (var property in Model)
+            {
+                <div class="property-card">
+                    <img src="https://placehold.co/300x200.png" alt="@property.PropertyName" class="property-image" /> <!-- Ensure you have an ImageUrl property -->
+                    <div class="property-info">
+                        <div class="property-price">$@property.PriceRange.ToString("N0")</div>
+                        <h3 class="property-name">@property.PropertyName</h3>
+                        <div class="property-location">📍 @property.Address</div>
+                        <div class="button-group">
+                            <a href="@Url.Action("Details", "Admin", new { id = property.PropertyId })" class="details-button">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    <style>
+        /* Base styles */
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .search-container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Search form styles */
+        .search-form {
+            background-color: #1e1e1e;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .region-search-btn, .seller-search-btn {
+            background-color: #2d2d2d;
+            color: white;
+            padding: 1rem 2rem;
+            border: 1px solid #333;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+            .region-search-btn:hover, .seller-search-btn:hover {
+                background-color: #383838;
+            }
+
+        /* Property grid styles */
+        /* Property grid styles */
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Property card styles */
+        .property-card {
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+            .property-card:hover {
+                transform: translateY(-5px);
+            }
+
+        .property-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .property-info {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            min-height: 200px;
+        }
+
+        .property-price {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #4CAF50;
+            margin-bottom: 0.5rem;
+        }
+
+        .property-name {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin: 0.5rem 0;
+            line-height: 1.4;
+        }
+
+        .property-location {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .property-type {
+            display: inline-block;
+            background-color: #2d2d2d;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.875rem;
+            color: #ccc;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: auto;
+            padding-top: 1rem;
+        }
+
+        .details-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem; /* Space between icon and text */
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none; /* Prevent underline for links */
+        }
+
+            .details-button i {
+                font-size: 1rem; /* Icon size */
+            }
+
+
+        .details-button {
+            background-color: #007bff;
+            color: white;
+        }
+
+            .details-button:hover {
+                background-color: #0056b3;
+            }
+    </style>
