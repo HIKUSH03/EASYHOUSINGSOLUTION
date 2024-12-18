@@ -93,7 +93,6 @@
     }
 </div>-->
 
-
 <style>
     /* Base styles */
     .cart-icon-container {
@@ -302,10 +301,12 @@
     .details-button {
         background-color: #007bff;
         color: white;
+        text-decoration: none;
     }
 
         .details-button:hover {
             background-color: #0056b3;
+            text-decoration: none;
         }
 
     .cart-button {
@@ -412,7 +413,7 @@
             </div>
         </form>
 
-        @Html.ActionLink("View All Properties", "Index", "Buyer", new { @class = "btn btn-outline-primary" })
+        @Html.ActionLink("View All Properties", "Index", "Admin", new { @class = "btn btn-outline-primary" })
     </div>
 
     @if (Model != null && Model.Any())
