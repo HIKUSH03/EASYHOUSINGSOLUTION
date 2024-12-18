@@ -1,45 +1,89 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About</title>
-    <link href="https://fonts.googleapis.com/css2?family=Recoleta:wght@400&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background-color: #121212; /* Set background color */
-            font-family: 'Recoleta', sans-serif; /* Use Recoleta font */
-            color: white; /* Set text color for better contrast */
-            margin: 0; /* Remove default margin */
-            padding: 200px; /* Add padding for content spacing */
-            position: relative; /* Set position relative for absolute positioning of the image */
-        }
+﻿@{
+    ViewBag.Title = "About Us";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-        h2, h3 {
-            margin: 10px 0; /* Space out headings */
-        }
+<style>
+    body {
+        background-color: #121212;
+        color: #ffffff;
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 20px;
+        line-height: 1.6;
+    }
 
-        p {
-            line-height: 1.6; /* Improve readability of paragraphs */
-        }
+    .about-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        background-color: #1e1e1e;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
 
-        .logo {
-            position: absolute; /* Position the logo absolutely */
-            top: 150px; /* Distance from the top */
-            left: 50px; /* Distance from the right */
-            width: 200px; /* Set width of the logo (adjust as needed) */
-            height: auto; /* Maintain aspect ratio */
-            z-index: 10; /* Ensure it appears above other content */
-        }
-    </style>
-</head>
-<body>
-    <img src="~/Content/images/Logo.png" alt="Logo" class="logo">
-    <main aria-labelledby="title">
-        <h2 id="title">@ViewBag.Title</h2>
-        <h3>@ViewBag.Message</h3>
+    h2 {
+        text-align: center;
+        color: #ffffff;
+        margin-bottom: 2rem;
+        font-size: 2.5rem;
+    }
 
-        <p>The EHS Group is a professional real estate brokerage serving buyers and sellers of luxury property in Delhi, Gurugram, Pune, Mumbai and Bangalore. The brokerage is composed of a close group of talented Realtors led by the firm’s President and Founder, Jason Oppenheim. With more than $3.5B+ in total sales and $500 million in active listings, the firm closes hundreds of deals annually and has brokered many of the region’s largest residential sales, including numerous record-breaking transactions. With offices in West Hollywood, Newport, San Diego, and Cabo San Lucas, The Oppenheim Group is the preeminent brokerage in the region, doing tremendous business throughout Metro cities in India.</p>
-    </main>
-</body>
-</html>
+    .mission-vision {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .mission-vision div {
+        background-color: #1e1e1e;
+        padding: 1.5rem;
+        border-radius: 10px;
+    }
+
+    .mission-vision h3 {
+        color: #4CAF50;
+        margin-bottom: 1rem;
+    }
+
+    .company-info {
+        margin-top: 2rem;
+        text-align: center;
+        background-color: #2d2d2d;
+        padding: 2rem;
+        border-radius: 10px;
+    }
+
+</style>
+
+<div class="about-container">
+    <h2>About Our Real Estate Platform</h2>
+
+    <div class="company-info">
+        <p>
+            We are an innovative real estate platform dedicated to connecting buyers and sellers
+            with seamless, transparent, and efficient property transactions. Our mission is to
+            revolutionize the way people buy, sell, and explore real estate.
+        </p>
+    </div>
+
+    <div class="mission-vision">
+        <div>
+            <h3>Our Mission</h3>
+            <p>
+                To empower individuals and businesses by providing a comprehensive, user-friendly
+                platform that simplifies real estate transactions, offers deep market insights,
+                and creates meaningful connections between property seekers and sellers.
+            </p>
+        </div>
+        <div>
+            <h3>Our Vision</h3>
+            <p>
+                To become the leading digital marketplace that transforms real estate interactions,
+                leveraging cutting-edge technology to make property discovery, valuation, and
+                transaction processes more transparent, accessible, and efficient.
+            </p>
+        </div>
+    </div>
+</div>
